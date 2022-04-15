@@ -1,0 +1,130 @@
+﻿<Window x:Class="RoomsAndSpacesManagerLib.Views.Windows.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoomsAndSpacesManagerLib.Views.Windows"
+             mc:Ignorable="d" 
+             Height="450" Width="800">
+    <TabControl SelectedIndex="{Binding SelectedIndexTabControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <TabItem Header="Список помещений">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition  Width="270"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0" Grid.Column="0">
+                    <TextBlock Width="50" Text="Проект: " DockPanel.Dock="Left"  VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="ProjectList" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}" />
+                                <Setter Property="ContextMenu">
+                                    <Setter.Value>
+                                        <ContextMenu>
+                                            <MenuItem Header="Удалить" Command="{Binding PlacementTarget.Tag.DeleteCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                        </ContextMenu>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+                </DockPanel>
+                <DockPanel Grid.Row="0" Grid.Column="1">
+                    <TextBlock Width="50" Text="Модель: " DockPanel.Dock="Left"  VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}" DockPanel.Dock="Left" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2" Height="25">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+                </DockPanel>
+
+                <DataGrid Grid.Row="3" Grid.ColumnSpan="3" DockPanel.Dock="Right" SelectionMode="Extended"  
+                          CanUserAddRows="False"
+                          FrozenColumnCount ="4"
+                          CanUserDeleteRows="False"
+                          SelectedItem="{Binding SelectedRoom}" 
+                          ItemsSource="{Binding Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          AutoGenerateColumns="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="30" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Наименование" Width="250" Binding="{Binding Name}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Краткое наименование" Width="100" Binding="{Binding ShortName}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Номер помещения" Width="100" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding RoomNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Command="{Binding Path=DataContext.SelectRevitRoomCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding }"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Id помещения из Revit" Binding="{Binding ArRoomId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Мин. площадь" Binding="{Binding Min_area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Кол-во" Binding="{Binding Count}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Суммарная расчётная площадь" Binding="{Binding Summary_Area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Рабочих мест/посетителей" Binding="{Binding Rab_mesta_posetiteli}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Количество перонала" Binding="{Binding Kolichestvo_personala}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Количество посетителей" Binding="{Binding Kolichestvo_posetitelei}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Категория пожароопасности" Binding="{Binding Categoty_pizharoopasnosti}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Класс чистоты по СанПиН" Binding="{Binding Class_chistoti_SanPin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Класс чистоты по СП 158" Binding="{Binding Class_chistoti_SP_158, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Класс чистоты по GMP" Binding="{Binding Class_chistoti_GMP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Примечание АР" Binding="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True"/>
+
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                <DockPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
+                    <Button Content="Отправить изменения в БД" Command="{Binding PushToDbCommand}" DockPanel.Dock="Right" Width="200" Margin="2 2 2 2"/>
+                    <Button Content="Заполнить параметры" Command="{Binding AddParametersCommand}" DockPanel.Dock="Right" Width="200" Margin="2 2 2 2" />
+                </DockPanel>
+
+            </Grid>
+        </TabItem>
+        <TabItem Header="Изменения">
+            <TreeView  ItemsSource="{Binding ChangeParametersList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=parameters}">
+                        <TextBlock Text="{Binding Name}"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Text="{Binding Name}" DockPanel.Dock="Left"/>
+                                    <TextBlock Text="  " DockPanel.Dock="Left"/>
+                                    <TextBlock Text="{Binding OldValue}" Background="Pink" DockPanel.Dock="Left"/>
+                                    <TextBlock Text="  " DockPanel.Dock="Left"/>
+                                    <TextBlock Text="{Binding NewValue}" Background="Green" DockPanel.Dock="Left"/>
+                                </DockPanel>
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                    <!--<HierarchicalDataTemplate ItemsSource="{Binding parameters}">
+                        <TextBlock Text="{Binding Name}"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                                <DataGrid  HeadersVisibility="None">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Наме" Binding="{Binding Name}"/>
+                                        <DataGridTextColumn Header="Валук" Binding="{Binding OldValue}"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>-->
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </TabItem>
+    </TabControl>
+</Window>

@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomsAndSpacesManagerDesktop", "RoomsAndSpacesManagerDesktop\RoomsAndSpacesManagerDesktop.csproj", "{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{99734086-64C1-43AF-9F99-2DEA19BE6CB6} = {99734086-64C1-43AF-9F99-2DEA19BE6CB6}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomAndSpacesManagerConsole", "RoomAndSpacesManagerConsole\RoomAndSpacesManagerConsole.csproj", "{F6DB6271-D474-44A3-9A6B-60132491B643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomsAndSpacesManagerDataBase", "RoomsAndSpacesManagerDataBase\RoomsAndSpacesManagerDataBase.csproj", "{99734086-64C1-43AF-9F99-2DEA19BE6CB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomsAndSpacesManagerLib", "RoomsAndSpacesManagerLib\RoomsAndSpacesManagerLib.csproj", "{F71CCC75-3FC2-47B2-8C95-A9D7EDDF354E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomAndSpacesOV", "RoomAndSpacesOV\RoomAndSpacesOV.csproj", "{73E2B54C-177A-4E1E-B3B8-F5AEC4D76F70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DB6271-D474-44A3-9A6B-60132491B643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DB6271-D474-44A3-9A6B-60132491B643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DB6271-D474-44A3-9A6B-60132491B643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99734086-64C1-43AF-9F99-2DEA19BE6CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99734086-64C1-43AF-9F99-2DEA19BE6CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99734086-64C1-43AF-9F99-2DEA19BE6CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99734086-64C1-43AF-9F99-2DEA19BE6CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F71CCC75-3FC2-47B2-8C95-A9D7EDDF354E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F71CCC75-3FC2-47B2-8C95-A9D7EDDF354E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F71CCC75-3FC2-47B2-8C95-A9D7EDDF354E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E2B54C-177A-4E1E-B3B8-F5AEC4D76F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E2B54C-177A-4E1E-B3B8-F5AEC4D76F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E2B54C-177A-4E1E-B3B8-F5AEC4D76F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E2B54C-177A-4E1E-B3B8-F5AEC4D76F70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {101B56EB-F7B3-4B0B-AB84-94D369B07951}
+	EndGlobalSection
+EndGlobal

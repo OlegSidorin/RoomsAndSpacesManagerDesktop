@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1F9585DD-4DA2-4DA0-8616-1399FD2C1C13}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>RoomsAndSpacesManagerDesktop</RootNamespace>
+    <AssemblyName>RoomsAndSpacesManagerDesktop</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\ya.goreglyad\Desktop\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>28996C7AA394257EC542BB1173DD8F87DC02241C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>RoomsAndSpacesManagerDesktop_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus, Version=6.0.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.6.0.3\lib\net452\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.Interfaces.6.0.0\lib\net452\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.System.Drawing.6.0.0\lib\net452\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IO.RecyclableMemoryStream.2.2.0\lib\net462\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RoomsAndSpacesManagerDataBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RoomsAndSpacesManagerDataBase\bin\Debug\RoomsAndSpacesManagerDataBase.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Data\DataBaseContext\RoomAndSpacesDbContext.cs" />
+    <Compile Include="Infrastructure\Behaviors\DataGridCellColorBehavior.cs" />
+    <Compile Include="Infrastructure\Commands\Base\Command.cs" />
+    <Compile Include="Infrastructure\Commands\RelayCommand.cs" />
+    <Compile Include="Infrastructure\CustomControls\ComboBoxTemplateSelector.cs" />
+    <Compile Include="Infrastructure\CustomControls\ComboBoxTemplateSelectorExtension.cs" />
+    <Compile Include="Infrastructure\CustomControls\CustomColumnTemplate.cs" />
+    <Compile Include="Infrastructure\CustomControls\CustomTextBlockColumnTemplate.cs" />
+    <Compile Include="Infrastructure\Repositories\EquipmentRep.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106110736054_Init.cs" />
+    <Compile Include="Migrations\202106110736054_Init.designer.cs">
+      <DependentUpon>202106110736054_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106110739079_NewRoomsInSubdiv.cs" />
+    <Compile Include="Migrations\202106110739079_NewRoomsInSubdiv.designer.cs">
+      <DependentUpon>202106110739079_NewRoomsInSubdiv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106171356504_DeleteCountAndSummuryArea.cs" />
+    <Compile Include="Migrations\202106171356504_DeleteCountAndSummuryArea.designer.cs">
+      <DependentUpon>202106171356504_DeleteCountAndSummuryArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106180729144_AddNotationFieldToRooms.cs" />
+    <Compile Include="Migrations\202106180729144_AddNotationFieldToRooms.designer.cs">
+      <DependentUpon>202106180729144_AddNotationFieldToRooms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106300740240_add new table RoomEquipmentDto.cs" />
+    <Compile Include="Migrations\202106300740240_add new table RoomEquipmentDto.designer.cs">
+      <DependentUpon>202106300740240_add new table RoomEquipmentDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107011127216_add Equipment table.cs" />
+    <Compile Include="Migrations\202107011127216_add Equipment table.designer.cs">
+      <DependentUpon>202107011127216_add Equipment table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107021206538_add -Discription- Field to db.cs" />
+    <Compile Include="Migrations\202107021206538_add -Discription- Field to db.designer.cs">
+      <DependentUpon>202107021206538_add -Discription- Field to db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107131521184_AddPosEtiteleiPersonalaColumn.cs" />
+    <Compile Include="Migrations\202107131521184_AddPosEtiteleiPersonalaColumn.designer.cs">
+      <DependentUpon>202107131521184_AddPosEtiteleiPersonalaColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108110833540_add new field in Equipment.cs" />
+    <Compile Include="Migrations\202108110833540_add new field in Equipment.designer.cs">
+      <DependentUpon>202108110833540_add new field in Equipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108181317520_addSubdivisionForseFieldToSubdivision.cs" />
+    <Compile Include="Migrations\202108181317520_addSubdivisionForseFieldToSubdivision.designer.cs">
+      <DependentUpon>202108181317520_addSubdivisionForseFieldToSubdivision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108191245177_addCalcCountFieldToRoomEquipment.cs" />
+    <Compile Include="Migrations\202108191245177_addCalcCountFieldToRoomEquipment.designer.cs">
+      <DependentUpon>202108191245177_addCalcCountFieldToRoomEquipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108191419083_addCalcCountFieldToEquipment.cs" />
+    <Compile Include="Migrations\202108191419083_addCalcCountFieldToEquipment.designer.cs">
+      <DependentUpon>202108191419083_addCalcCountFieldToEquipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108230915171_AddOrderFieldToSubdivision.cs" />
+    <Compile Include="Migrations\202108230915171_AddOrderFieldToSubdivision.designer.cs">
+      <DependentUpon>202108230915171_AddOrderFieldToSubdivision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108250837398_AddSubdivTypeFieldToSubdivision.cs" />
+    <Compile Include="Migrations\202108250837398_AddSubdivTypeFieldToSubdivision.designer.cs">
+      <DependentUpon>202108250837398_AddSubdivTypeFieldToSubdivision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111011306044_test migration 01.11.cs" />
+    <Compile Include="Migrations\202111011306044_test migration 01.11.designer.cs">
+      <DependentUpon>202111011306044_test migration 01.11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\CsvModels\UploadToCsvModel.cs" />
+    <Compile Include="Models\DbModels\Base\MainDbContext.cs" />
+    <Compile Include="Models\DbModels\EquipmentDbContext.cs" />
+    <Compile Include="Models\DbModels\ProjectsDbContext.cs" />
+    <Compile Include="Models\DbModels\RoomsDbContext.cs" />
+    <Compile Include="Models\ExcelModels\MainExcelModel.cs" />
+    <Compile Include="Models\SqlModel\SqlMainModel.cs" />
+    <Compile Include="ViewModels\Base\ViewModel.cs" />
+    <Compile Include="ViewModels\CopySubDivisionViewModel.cs" />
+    <Compile Include="ViewModels\CreateIssueViewModel.cs" />
+    <Compile Include="ViewModels\EquipmentsViewModel.cs" />
+    <Compile Include="ViewModels\ProjectSettingsViewModel.cs" />
+    <Compile Include="ViewModels\RoomEquipmentsViewModel.cs" />
+    <Compile Include="ViewModels\RoomsPropertiesViewModel.cs" />
+    <Compile Include="Views\UserControls\CreateIssueMainWindow.xaml.cs">
+      <DependentUpon>CreateIssueMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\RoomsPropertiesuserControl.xaml.cs">
+      <DependentUpon>RoomsPropertiesuserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\ArTabUserControl.xaml.cs">
+      <DependentUpon>ArTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\EomTabUserControl.xaml.cs">
+      <DependentUpon>EomTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\HsTabUserControl.xaml.cs">
+      <DependentUpon>HsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\KrTabUserControl.xaml.cs">
+      <DependentUpon>KrTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\MgtgTubUserControl.xaml.cs">
+      <DependentUpon>MgtgTubUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\OvTabUserControl.xaml.cs">
+      <DependentUpon>OvTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\SsTabUserControl.xaml.cs">
+      <DependentUpon>SsTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\VkTabUserControl.xaml.cs">
+      <DependentUpon>VkTabUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\_RoomProgram.xaml.cs">
+      <DependentUpon>_RoomProgram.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SubTabs\_Summary.xaml.cs">
+      <DependentUpon>_Summary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\CopySubdivisionWindow.xaml.cs">
+      <DependentUpon>CopySubdivisionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\EquipmentsWindow.xaml.cs">
+      <DependentUpon>EquipmentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Windows\ProjectSettingsWindow.xaml.cs">
+      <DependentUpon>ProjectSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Windows\RoomEquipmentsWindow.xaml.cs">
+      <DependentUpon>RoomEquipmentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ButtonStyle01.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\DGColumnCellCenterStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\DGColumnCellLeftStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\DGColumnHeaderCenterStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\TextBoxStyle01.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\CreateIssueMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\RoomsPropertiesuserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\ArTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\EomTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\HsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\KrTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\MgtgTubUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\OvTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\SsTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\VkTabUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\_RoomProgram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SubTabs\_Summary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\CopySubdivisionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\EquipmentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\ProjectSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Windows\RoomEquipmentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Migrations\202106110736054_Init.resx">
+      <DependentUpon>202106110736054_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106110739079_NewRoomsInSubdiv.resx">
+      <DependentUpon>202106110739079_NewRoomsInSubdiv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106171356504_DeleteCountAndSummuryArea.resx">
+      <DependentUpon>202106171356504_DeleteCountAndSummuryArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106180729144_AddNotationFieldToRooms.resx">
+      <DependentUpon>202106180729144_AddNotationFieldToRooms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106300740240_add new table RoomEquipmentDto.resx">
+      <DependentUpon>202106300740240_add new table RoomEquipmentDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107011127216_add Equipment table.resx">
+      <DependentUpon>202107011127216_add Equipment table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107021206538_add -Discription- Field to db.resx">
+      <DependentUpon>202107021206538_add -Discription- Field to db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107131521184_AddPosEtiteleiPersonalaColumn.resx">
+      <DependentUpon>202107131521184_AddPosEtiteleiPersonalaColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108110833540_add new field in Equipment.resx">
+      <DependentUpon>202108110833540_add new field in Equipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108181317520_addSubdivisionForseFieldToSubdivision.resx">
+      <DependentUpon>202108181317520_addSubdivisionForseFieldToSubdivision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108191245177_addCalcCountFieldToRoomEquipment.resx">
+      <DependentUpon>202108191245177_addCalcCountFieldToRoomEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108191419083_addCalcCountFieldToEquipment.resx">
+      <DependentUpon>202108191419083_addCalcCountFieldToEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108230915171_AddOrderFieldToSubdivision.resx">
+      <DependentUpon>202108230915171_AddOrderFieldToSubdivision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108250837398_AddSubdivTypeFieldToSubdivision.resx">
+      <DependentUpon>202108250837398_AddSubdivTypeFieldToSubdivision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111011306044_test migration 01.11.resx">
+      <DependentUpon>202111011306044_test migration 01.11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RoomsAndSpacesManagerDesktop_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\pen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\broom-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\copyname-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default-64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\delete-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\equipment-50.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default-48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>

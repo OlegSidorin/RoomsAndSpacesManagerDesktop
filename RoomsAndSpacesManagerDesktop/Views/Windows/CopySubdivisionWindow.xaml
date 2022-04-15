@@ -1,0 +1,30 @@
+﻿<Window x:Class="RoomsAndSpacesManagerDesktop.Views.Windows.CopySubdivisionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoomsAndSpacesManagerDesktop.Views.Windows"
+        mc:Ignorable="d"
+        Title="CopySubdivisionWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="180"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0" Height="25" Width="270" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}"/>
+        <ComboBox Grid.Row="1" Height="25" Width="270" ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}"/>
+        <ListBox Grid.Row="2" ItemsSource="{Binding Subdivisions}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <CheckBox IsChecked="{Binding IsChecked}" DockPanel.Dock="Left"/>
+                        <TextBlock  DockPanel.Dock="Left" Text="{Binding Name}"/>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Row="3" Margin="5 0 5 5" Content="Скопировать выбранные подразделения" Command="{Binding CopySubdivisionCommand}"/>
+    </Grid>
+</Window>

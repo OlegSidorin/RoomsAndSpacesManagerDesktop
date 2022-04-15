@@ -1,0 +1,83 @@
+﻿<Window x:Class="RoomAndSpacesOV.Views.Windows.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoomAndSpacesOV.Views.Windows"
+             xmlns:cc="clr-namespace:RoomAndSpacesOV.Infrastructure.CustomControls"
+             mc:Ignorable="d" 
+             Height="800" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <TextBlock Text="Проект: " VerticalAlignment="Center" Margin="15 2 15 2"/>
+            <ComboBox Margin="3,3,3.333,0" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" Height="24" VerticalAlignment="Top"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1">
+            <TextBlock Text="Модель: " VerticalAlignment="Center" Margin="15 2 12 2"/>
+            <ComboBox Margin="3,3,3.333,0" Grid.Row="1" ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}" Height="24" VerticalAlignment="Top"/>
+        </DockPanel>
+
+        
+
+        <TabControl Grid.Row="2">
+            <TabItem Header="Список измененных помещений">
+                <TreeView ItemsSource="{Binding SpacesList}">
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate ItemsSource="{Binding parameters}">
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel>
+                                        <DockPanel DockPanel.Dock="Top">
+                                            <TextBlock Text="{Binding Name}" DockPanel.Dock="Left"/>
+                                            <TextBlock Text="    " Margin="0 3"  DockPanel.Dock="Left"/>
+                                            <TextBlock Text="{Binding OldValue}" Background="#ffd6d4"  DockPanel.Dock="Left"/>
+                                            <TextBlock Text="    " Margin="0 3"  DockPanel.Dock="Left"/>
+                                            <TextBlock Text="{Binding NewValue}" Background="#98fbd7"  DockPanel.Dock="Left"/>
+                                        </DockPanel>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding RoomNumber}" Background="#ffd6d4"/>
+                                <TextBlock Text="    " Margin="0 3"/>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DockPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </TabItem>
+            <cc:CustomTubItem ListCount="{Binding ListCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Список отсутствующих помещений в модели" >
+                <DataGrid CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding UnfoundedRoomsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Номер помещения" Binding="{Binding RoomNumber}"/>
+                        <DataGridTemplateColumn IsReadOnly="True" Header="Имя помещения" Width="300">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
+                        <DataGridTemplateColumn IsReadOnly="True" Header="Подразделение" Width="200">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Subdivision}" TextWrapping="Wrap"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <!-- ///////////////////////////////////////////////////////////////////////////////////////////////  -->
+                    </DataGrid.Columns>
+                </DataGrid>
+            </cc:CustomTubItem>
+        </TabControl>
+        <Button Grid.Row="3" Margin="2 2 2 2" Content="Обновить параметры в модели" Command="{Binding AddParametersCommand}"/>
+    </Grid>
+</Window>

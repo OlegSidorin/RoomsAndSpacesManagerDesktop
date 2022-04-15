@@ -1,0 +1,575 @@
+﻿<UserControl x:Class="RoomsAndSpacesManagerDesktop.Views.UserControls.RoomsPropertiesuserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoomsAndSpacesManagerDesktop.Views.UserControls"
+             xmlns:vm="clr-namespace:RoomsAndSpacesManagerDesktop.ViewModels"
+             mc:Ignorable="d" Background="#ebecef" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.DataContext>
+        <vm:RoomsPropertiesViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition  Width="270"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.Column="0">
+                <TextBlock Text="Категория:" DockPanel.Dock="Left"  
+                           VerticalAlignment="Center" Margin="6 0 0 0" 
+                           FontWeight="DemiBold"/>
+                <ComboBox ItemsSource="{Binding Categories}" 
+                          SelectedItem="{Binding SelectedCategories}" 
+                          x:Name="cbCategories"
+                          Margin="18 0 10 0" DockPanel.Dock="Left" 
+                          Height="25" Width="150" 
+                          HorizontalAlignment="Right" 
+                          VerticalAlignment="Center"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="0" Grid.Column="1">
+                <TextBlock Text="Подкатегория:"  DockPanel.Dock="Left"  
+                           VerticalAlignment="Center" Margin="6 0 0 0" 
+                           FontWeight="DemiBold"/>
+                <ComboBox ItemsSource="{Binding SubCategories}" 
+                          SelectedItem="{Binding SelectedSubCategories}" 
+                          x:Name="cbSubCategories"
+                          Margin="18 0 10 0"  DockPanel.Dock="Left" 
+                          Width="150" Height="25"
+                          HorizontalAlignment="Right" 
+                          VerticalAlignment="Center"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="0" Grid.Column="3">
+                <TextBlock VerticalAlignment="Center" Text="Добавить новый категорию/подкатегорию: " Margin="6 0 0 0" FontWeight="DemiBold"/>
+                <CheckBox x:Name="chk" VerticalAlignment="Center" IsChecked="True"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="1" Grid.Column="0" Margin="0 0 0 0"
+                       Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
+                
+                <Button Command="{Binding AddNewCategoryCommand}" Content="+"  
+                        Margin="15 0 0 0" Width="20" Height="20" 
+                        DockPanel.Dock="Left"  VerticalAlignment="Center"/>
+                <TextBox Text="{Binding NewCategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" 
+                         Height="25" Width="150" 
+                         HorizontalAlignment="Right" VerticalAlignment="Center" 
+                         Margin="0 2 10 2"/>
+            </DockPanel>
+            <DockPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
+                
+                <Button Command="{Binding AddNewSubcategoryCommand}" 
+                        Content="+"  Margin="65 0 0 0" 
+                        Width="20" Height="20" DockPanel.Dock="Left"  
+                        VerticalAlignment="Center" 
+                        CommandParameter="{Binding ElementName=ProjectList,Path=SelectedItem}"/>
+                <TextBox Text="{Binding NewSubcategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                         DockPanel.Dock="Left" Height="25" Width="150" 
+                         HorizontalAlignment="Right" VerticalAlignment="Center" 
+                         Margin="0 2 10 2"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="2" Grid.Column="0">
+                <TextBlock Text="Фильтр:" DockPanel.Dock="Left" 
+                           Margin="6 0 20 0"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Center"/>
+                <TextBox Text="{Binding RoomNameFiltering, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                         Name="tbFilter"
+                         Width="150" Height="25" DockPanel.Dock="Left" 
+                         HorizontalAlignment="Right" 
+                         Margin="0 0 10 0"
+                         VerticalAlignment="Center"/>
+            </DockPanel>
+            <DockPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch">
+                <Button HorizontalAlignment="Stretch"
+                        Command="{Binding ClearCategoriesComboBoxSelectedItem}"
+                        Height="20" 
+                        Style="{StaticResource ButtonStyle01}"
+                        Margin="6 0 10 0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/broom-64.png"
+                               Height="15"/>
+                        <TextBlock Text="Очистить фильтры" 
+                                   Margin="3 0 0 0"/>
+
+
+                    </StackPanel>
+                </Button>
+            </DockPanel>
+
+            <DataGrid AlternatingRowBackground="#d1d7e2" 
+                      Background="Transparent"
+                      GridLinesVisibility="Vertical" 
+                      VerticalGridLinesBrush="#aab"
+                      FrozenColumnCount ="4"
+                          SelectionMode="Extended"  
+                          EnableRowVirtualization="True"
+                          CanUserAddRows="False"
+                          Grid.Row="3" Grid.ColumnSpan="3"
+                          SelectedItem="{Binding SelectedRoom}" 
+                          ItemsSource="{Binding Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          AutoGenerateColumns="False">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="ContentTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding PlacementTarget.Tag.DeleteRoomCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                    <MenuItem Header="Перечень оборудования" Command="{Binding PlacementTarget.Tag.GetRoomEquipments, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="45" IsReadOnly="True"/>
+                    <DataGridTemplateColumn Header="Подкатегория" Width="50"  
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding SubCategory}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Оборудование" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Binding="{Binding EquipmentAvailability}" 
+                                        Width="65" IsReadOnly="True">
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Наименование помещений" 
+                                            CellStyle="{StaticResource DGColumnCellLeftStyle}"
+                                            Width="400">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Name}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Мин. площадь" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Min_area}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Min_area}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Класс чистоты по СанПиН" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Class_chistoti_SanPin}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_SanPin}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Класс чистоты по СП 158" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Class_chistoti_SP_158}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_SP_158}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Класс чистоты по GMP" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Class_chistoti_GMP}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_GMP}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Температура расчётная, °C" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding T_calc}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_calc}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Температура мин, °C" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding T_min}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_min}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Температура макс, °C" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding T_max}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_max}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Приток" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Pritok}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Pritok}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Вытяжка" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Vityazhka}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Vityazhka}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Отн. влажность,%" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Ot_vlazhnost}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Ot_vlazhnost}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="КЕО при бок. ест. осв." 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding KEO_est_osv}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding KEO_est_osv}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="КЕО при бок. совм. осв." 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding KEO_sovm_osv}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding KEO_sovm_osv}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание ОВ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_OV}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_OV}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Освещенность при общем освещении, лк" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Osveshennost_pro_obshem_osvech}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Osveshennost_pro_obshem_osvech}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Группа по электробезопасности" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Group_el_bez}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Group_el_bez}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание ЭОМ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_EOM}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_EOM}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание АР" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_AR}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_AR}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Оборудование ВК" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Equipment_VK}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Equipment_VK}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание СС" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_SS}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_SS}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание АК, АТХ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_AK_ATH}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_AK_ATH}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание ГСВ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_GSV}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_GSV}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Примечание ХС" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Discription_HS}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_HS}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <DockPanel Grid.Row="4" Grid.Column="2">
+                <Button Command="{Binding PushToDbCommand}" 
+                        Style="{StaticResource ButtonStyle01}"
+                        Content="Отправить изменения в БД" 
+                        Width="190" Height="35" 
+                        DockPanel.Dock="Right" 
+                        Margin="0 0 4 0"/>
+                <Button Command="{Binding PullFromDbCommand}" 
+                        Content="Pull" 
+                        Width="50" Height="25" 
+                        DockPanel.Dock="Right" 
+                        HorizontalAlignment="Right" 
+                        Margin="0 0 10 0"/>
+                <TextBlock Text="{Binding Status}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0 0 10 0"/>
+            </DockPanel>
+
+            <Button Command="{Binding AddNewRowCommand}" 
+                    Content="Добавить строку" 
+                    Width="100" Height="25" 
+                    HorizontalAlignment="Left" 
+                    Grid.Row="4" Margin="0 0 10 0" />
+            
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,40 @@
+﻿<Window x:Class="RoomsAndSpacesManagerDesktop.Views.Windows.ProjectSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RoomsAndSpacesManagerDesktop.Views.Windows"
+        xmlns:vm="clr-namespace:RoomsAndSpacesManagerDesktop.ViewModels"
+        mc:Ignorable="d"
+        Title="ProjectSettingsWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Subdivisions}" SelectedItem="{Binding SelectedSubdivision}" CanUserAddRows="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя подразделения" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Мощность подразделения" Binding="{Binding SubdivisionForce}"/>
+                <DataGridTemplateColumn  Header="Тип подразделения">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SubdivisionType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding Path=DataContext.SubdivisionTypes, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" SelectedItem="{Binding SubdivisionType}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DockPanel Grid.Row="2" >
+            <Button Width="150" Margin="0 2 0 2" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding ApplyChangesCommand }" Content="Сохранить изменения"/>
+            <Button Width="150" Margin="0 2 0 2" DockPanel.Dock="Left" HorizontalAlignment="Left" Command="{Binding UpCommand}" CommandParameter="{Binding SelectedSubdivision}" Content="Вверх"/>
+            <Button Width="150" Margin="0 2 0 2" DockPanel.Dock="Left" HorizontalAlignment="Left" Command="{Binding DownCommand}"  CommandParameter="{Binding SelectedSubdivision}" Content="Вниз"/>
+        </DockPanel>
+    </Grid>
+</Window>

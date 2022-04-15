@@ -1,0 +1,777 @@
+﻿<UserControl x:Class="RoomsAndSpacesManagerDesktop.Views.UserControls.CreateIssueMainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoomsAndSpacesManagerDesktop.Views.UserControls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:RoomsAndSpacesManagerDesktop.ViewModels"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:customControls="clr-namespace:RoomsAndSpacesManagerDesktop.Infrastructure.CustomControls"
+             mc:Ignorable="d" Background="#ebecef" 
+             d:DesignHeight="450" d:DesignWidth="1100">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <UserControl.DataContext>
+        <vm:CreateIssueViewModel />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition  Width="270"/>
+            <ColumnDefinition  Width="270"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Grid.Column="0">
+            <TextBlock Width="50" 
+                       Margin="6 0 0 0"
+                       FontWeight="DemiBold"
+                       Text="Проект:" 
+                       DockPanel.Dock="Left"  
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Right"/>
+            <ComboBox SelectedIndex="0" x:Name="ProjectList" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding PlacementTarget.Tag.DeleteCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock Width="50" Text="Здание:" 
+                       DockPanel.Dock="Left"
+                       FontWeight="DemiBold"
+                       Margin="4 0 0 0"
+                       VerticalAlignment="Center"/>
+            <ComboBox x:Name="BuildingsList" ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}" DockPanel.Dock="Left" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2" Height="25">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBox Height="20" Text="{Binding Name}" BorderBrush="Transparent" IsEnabled="{Binding IsReadOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button BorderBrush="Transparent" Background="Transparent" Height="20" Width="20" Command="{Binding Path=DataContext.RenameBuildingCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding }">
+                                <Image Source="../../Resources/pen.png"/>
+                            </Button>
+                        </DockPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding PlacementTarget.Tag.DeleteCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DockPanel>
+
+        <DockPanel Grid.Row="0" Grid.Column="2">
+            <TextBlock Width="90" Text="Подразделение:" 
+                       DockPanel.Dock="Left"  
+                       FontWeight="DemiBold"
+                       Margin="2 0 0 0"
+                       VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Subdivisions}" SelectedItem="{Binding SelectedSubdivision}" DockPanel.Dock="Left" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2" Height="25">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBox Height="20" Text="{Binding Name}" BorderBrush="Transparent" IsEnabled="{Binding IsReadOnly, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button BorderBrush="Transparent" Background="Transparent" Height="20" Width="20" Command="{Binding Path=DataContext.RenameSubdivisionCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding }">
+                                <Image Source="../../Resources/pen.png"/>
+                            </Button>
+                        </DockPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ComboBox}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Command="{Binding PlacementTarget.Tag.DeleteCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding }" />
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+        </DockPanel>
+
+        <DockPanel Grid.Row="0" Grid.Column="3">
+            <TextBlock VerticalAlignment="Center" Text="Добавить новый проект/модель: "
+                       FontWeight="DemiBold"
+                       Margin="2 0 0 0"/>
+            <CheckBox x:Name="chk" VerticalAlignment="Center" IsChecked="False"/>
+            <Button Width="25" Height="25" Content="Set" Command="{Binding ProjectSettingsCommand}"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="0" Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
+            <Button Command="{Binding AddNewProjectCommand}" Content="+"  Margin="50 0 0 0" Width="20" Height="20" DockPanel.Dock="Left"  VerticalAlignment="Center"/>
+            <TextBox Text="{Binding NewProjectName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
+            <Button Command="{Binding AddNewBuildingCommand}" Content="+"  Margin="65 0 0 0" Width="20" Height="20" DockPanel.Dock="Left"  VerticalAlignment="Center" CommandParameter="{Binding ElementName=ProjectList,Path=SelectedItem}"/>
+            <TextBox Text="{Binding NewBuildingName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1" Grid.Column="2" Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
+            <Button Command="{Binding AddNewSubdivisionCommand}" Content="+"  Margin="65 0 0 0" Width="20" Height="20" DockPanel.Dock="Left"  VerticalAlignment="Center" CommandParameter="{Binding ElementName=BuildingsList,Path=SelectedItem}"/>
+            <TextBox Text="{Binding NewSubdivisionName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Категория:"
+                       Margin="6 0 0 0"
+                       FontWeight="DemiBold"
+                       DockPanel.Dock="Left"  
+                       VerticalAlignment="Center"/>
+            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategoties}" DockPanel.Dock="Left" Height="25" Width="150" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Подкатегория:"
+                       DockPanel.Dock="Left"
+                       FontWeight="DemiBold"
+                       Margin="4 0 0 0"
+                       VerticalAlignment="Center"/>
+            <ComboBox x:Name="SubCatsList" ItemsSource="{Binding SubCategories}" SelectedItem="{Binding SelectedSubCategoties}" DockPanel.Dock="Left" Width="150"  Height="25" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 2 20 2"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="4">
+            <DataGrid DockPanel.Dock="Right" SelectionMode="Extended" 
+                      Background="Transparent"
+                      GridLinesVisibility="Vertical"
+                      VerticalGridLinesBrush="#aab"
+                      AlternatingRowBackground="#d1d7e2" 
+                          CanUserAddRows="False"
+                          FrozenColumnCount ="4"
+                          EnableRowVirtualization="True"
+                          CanUserDeleteRows="False"
+                          SelectedItem="{Binding SelectedRoom}" 
+                          ItemsSource="{Binding Rooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, IsAsync=True}" 
+                          AutoGenerateColumns="False">
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Tag" Value="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}" />
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" 
+                                              Command="{Binding PlacementTarget.Tag.DeleteIssueCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                              CommandParameter="{Binding }" >
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/delete-24.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Значения по умолчанию" 
+                                              Command="{Binding PlacementTarget.Tag.SetDefaultValueCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                              CommandParameter="{Binding }" >
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/default-48.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Оборудование" 
+                                              Command="{Binding PlacementTarget.Tag.GetEquipmentCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                              CommandParameter="{Binding }" >
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/equipment-50.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem Header="Наименование -> Краткое наимен." 
+                                              Command="{Binding PlacementTarget.Tag.CopyNameToShortNameCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                              CommandParameter="{Binding }">
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/copyname-48.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id"
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="45" 
+                                        IsReadOnly="True">
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Подразделение" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="115" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox Height="20" Width="180"
+                                          ItemsSource="{Binding Path=DataContext.Subdivisions, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
+                                          SelectedItem="{Binding Path=DataContext.SelectedSubdivisionAction, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Subdivision}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Наименование"  
+                                        CellStyle="{StaticResource DGColumnCellLeftStyle}"
+                                            Width="250">
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBox Text="{Binding Path=DataContext.RoomNameFiltering, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" DockPanel.Dock="Top">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Unloaded">
+                                                <i:InvokeCommandAction Command="{Binding Path=DataContext.ClearTextboxCommand, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <ComboBox VirtualizingPanel.IsVirtualizing="True" 
+                                              IsDropDownOpen="{Binding Path=DataContext.IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
+                                              DockPanel.Dock="Bottom" 
+                                              Height="20" Width="230"
+                                              ItemsSource="{Binding Path=DataContext.RoomsNames, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
+                                              SelectedItem="{Binding Path=DataContext.SelectedRoomName, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="DropDownOpened">
+                                                <i:InvokeCommandAction Command="{Binding Path=DataContext.RenderComboboxCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding ElementName=SubCatsList,Path=SelectedItem}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                </DockPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Краткое наименование" 
+                                        CellStyle="{StaticResource DGColumnCellLeftStyle}"
+                                        Width="180" 
+                                        Binding="{Binding ShortName}">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Номер помещения" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="100" 
+                                        Binding="{Binding RoomNumber}"/>
+                    <DataGridTemplateColumn Header="Мин. площадь" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Min_area"
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding Min_area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   
+                                    FirstValue="{Binding Min_area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Min_area, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Рабочих мест/посетителей" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding Rab_mesta_posetiteli}"/>
+                    <DataGridTextColumn Header="Количество персонала" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding Kolichestvo_personala}"/>
+                    <DataGridTextColumn Header="Количество посетителей" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding Kolichestvo_posetitelei}"/>
+                    <DataGridTextColumn Header="Категория пожароопасности" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding Categoty_pizharoopasnosti}"/>
+                    <DataGridTemplateColumn Header="Класс чистоты по СанПиН" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Class_chistoti_SanPin"
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding Class_chistoti_SanPin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Class_chistoti_SanPin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_SanPin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Класс чистоты по СП 158" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Class_chistoti_SP_158"
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding Class_chistoti_SP_158, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Class_chistoti_SP_158, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_SP_158, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Класс чистоты по GMP" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Class_chistoti_GMP" TextWrapping="Wrap"
+                                                                              SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Text="{Binding Class_chistoti_GMP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Class_chistoti_GMP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Class_chistoti_GMP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Примечание АР"
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_AR"
+                                    Text="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Температура расчётная, °C" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="T_calc"
+                                    Text="{Binding T_calc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding T_calc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_calc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Температура мин, °C"  
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="T_min"
+                                    Text="{Binding T_min, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding T_min, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_min, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Температура макс, °C" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="T_max"
+                                    Text="{Binding T_max, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding T_max, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding T_max, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Приток" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Pritok"
+                                    Text="{Binding Pritok, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Pritok, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Pritok, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Вытяжка" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Vityazhka"
+                                    Text="{Binding Vityazhka, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Vityazhka, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Vityazhka, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Относительная влажность, %" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Ot_vlazhnost"
+                                    Text="{Binding Ot_vlazhnost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Ot_vlazhnost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Ot_vlazhnost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Примечание ОВ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_OV"
+                                    Text="{Binding Discription_OV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_OV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_OV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Оборудование ВК" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Equipment_VK"
+                                    Text="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="КЕО при бок. ест. осв." 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="KEO_est_osv"
+                                    Text="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="КЕО при бок. совм. осв." 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="KEO_sovm_osv"
+                                    Text="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Освещенность при общем освещении, лк"  
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}" 
+                                            Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Osveshennost_pro_obshem_osvech"
+                                    Text="{Binding Osveshennost_pro_obshem_osvech, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Osveshennost_pro_obshem_osvech, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Osveshennost_pro_obshem_osvech, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Электрическая нагрузка, кВт" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding El_Nagruzka}"/>
+                    <DataGridTemplateColumn Header="Группа по электробезопасности" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Group_el_bez"
+                                    Text="{Binding Group_el_bez, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Group_el_bez, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Group_el_bez, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Примечание ЭОМ" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_EOM"
+                                    Text="{Binding Discription_EOM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_EOM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_EOM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Примечание СС"  
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="110">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_SS"
+                                    Text="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Нагрузка на перекрытие" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="90"
+                                        Binding="{Binding Nagruzki_na_perekririe}"/>
+                    <DataGridTemplateColumn Header="Примечание АК, АТХ"  
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_AK_ATH" TextWrapping="Wrap"
+                                    Text="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Технологические газы" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="180">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_GSV"
+                                    Text="{Binding Discription_GSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_GSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_GSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Холодоснабжение" 
+                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_HS"
+                                    Text="{Binding Discription_HS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
+                                    FirstValue="{Binding Discription_HS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
+                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Discription_HS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+        <DockPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
+
+            <Button Content="{Binding ButtonNameAddNewStrings}" 
+                    Command="{Binding AddNewRowCommand}" 
+                    HorizontalAlignment="Left" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Margin="4 0 2 0"  
+                    Width="130" Height="35"/>
+            <xctk:IntegerUpDown 
+                Background="#b1b7c2"
+                ButtonSpinnerWidth="30"
+                Minimum="1"
+                Value="{Binding NumberNewStrings}"
+                VerticalAlignment="Center" 
+                VerticalContentAlignment="Center"
+                FontWeight="DemiBold"
+                FontSize="12"
+                BorderThickness="0"
+                Height="35"
+                Width="30"
+                Margin="2 0 0 0"
+                Name="myUpDownControl" />
+            <Button Content="Копировать подразд." 
+                    Command="{Binding CopySubdivisionCommnd}" 
+                    HorizontalAlignment="Left" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Margin="16 0 0 0" Width="140" Height="35"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
+            <Button Command="{Binding PushToDbCommand}" 
+                    Content="Отправить изменения в БД" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Width="190" Height="35" 
+                    DockPanel.Dock="Right" 
+                    Margin="0 0 4 0"/>
+            <Button Command="{Binding UploadProgramToExcelCommand}" 
+                    Content="Выгрузить задание" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Width="160" Height="35" DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0"/>
+            <Button Command="{Binding UploadStandartEquipmentToExcelCommand}" 
+                    Content="Выгрузить по стандарту" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Width="160" Height="35" DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0"/>
+            <Button Command="{Binding UploadAllEquipmentToExcelCommand}" 
+                    Content="Выгрузить все оборудование" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Width="185" Height="35" 
+                    DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0"/>
+        </DockPanel>
+    </Grid>
+</UserControl>
