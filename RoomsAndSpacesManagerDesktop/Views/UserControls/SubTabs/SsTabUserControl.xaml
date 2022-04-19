@@ -80,7 +80,9 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Оборудование СС" Binding="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100" IsReadOnly="True">
+                <DataGridTextColumn Header="Оборудование СС" 
+                                    Binding="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="100" IsReadOnly="True">
                     <DataGridTextColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Background" Value="{Binding Discription_SS_color}"/>
@@ -95,7 +97,22 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-  
+                <DataGridTextColumn Header="Примечание АК, АТХ" 
+                                    Binding="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="100" IsReadOnly="True">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="{Binding Discription_AK_ATH_color}"/>
+                            <Style.Triggers>
+                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{Binding Discription_AK_ATH_color}"/>
+                                    <Setter Property="Foreground"  Value="Black"/>
+                                    <Setter Property="BorderBrush" Value="Blue"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

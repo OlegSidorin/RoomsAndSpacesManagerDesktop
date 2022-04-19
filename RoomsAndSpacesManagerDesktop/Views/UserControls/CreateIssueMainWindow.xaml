@@ -159,7 +159,9 @@
         </DockPanel>
 
         <DockPanel Grid.Row="3" Grid.ColumnSpan="4">
-            <DataGrid DockPanel.Dock="Right" SelectionMode="Extended" 
+            <DataGrid DockPanel.Dock="Right" SelectionMode="Single" 
+                      x:Name="dgRooms"
+                      SelectionChanged="dgRooms_SelectionChanged"
                       Background="Transparent"
                       GridLinesVisibility="Vertical"
                       VerticalGridLinesBrush="#aab"
@@ -185,13 +187,18 @@
                                                    Height="15"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
-                                    <MenuItem Header="Значения по умолчанию" 
+                                    <MenuItem Header="Установить все значения по умолчанию" 
                                               Command="{Binding PlacementTarget.Tag.SetDefaultValueCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                                               CommandParameter="{Binding }" >
                                         <MenuItem.Icon>
                                             <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/default-48.png" 
                                                    Height="15"/>
                                         </MenuItem.Icon>
+                                        <MenuItem.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="All" />
+                                            </ContextMenu>
+                                        </MenuItem.ContextMenu>
                                     </MenuItem>
                                     <MenuItem Header="Оборудование" 
                                               Command="{Binding PlacementTarget.Tag.GetEquipmentCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
@@ -208,6 +215,174 @@
                                             <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/copyname-48.png" 
                                                    Height="15"/>
                                         </MenuItem.Icon>
+                                    </MenuItem>
+                                    <Separator />
+                                    <MenuItem Header="Установить по умолчанию только:">
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                        <MenuItem Header="Минимальную площадь" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_MinAreaCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Класс чистоты по СанПиН" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Class_chistoti_SanPinCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Класс чистоты по СП 158" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Class_chistoti_SP_158Command, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Класс чистоты по GMP" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Class_chistoti_GMPCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Примечание АР" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_ARCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Температуру расчетную" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_T_calcCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Температуру минимальную" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_T_minCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Температуру максимальную"  
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_T_maxCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Приток"  
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_PritokCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Вытяжку"  
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_VityazhkaCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Относительную влажность" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Ot_vlazhnostCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Примечание ОВ"    
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_OVCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Оборудование ВК" 
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Equipment_VKCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Освещенность при общем освещении"   
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Osveshennost_pro_obshem_osvechCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Группу по электробезопасности"   
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Group_el_bezCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Примечание ЭОМ"   
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_EOMCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Примечание СС"    
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_SSCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Примечание АК, АТХ"    
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_AK_ATHCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Технологические газы"    
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_GSVCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Холодоснабжение"    
+                                                  Command="{Binding PlacementTarget.Tag.SetDefaultValue_Discription_HSCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                                  CommandParameter="{Binding }">
+                                            <MenuItem.Icon>
+                                                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/point-24.png" 
+                                                       Margin="3 0 0 0" Height="10"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+
                                     </MenuItem>
                                 </ContextMenu>
                             </Setter.Value>
@@ -238,7 +413,12 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Наименование"  
+                    <DataGridTextColumn Header="Номер помещения" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="100" 
+                                        Binding="{Binding RoomNumber}"/>
+                    <DataGridTemplateColumn Header="Наименование (по СП 158)"  
                                         CellStyle="{StaticResource DGColumnCellLeftStyle}"
                                             Width="250">
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -272,7 +452,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Краткое наименование" 
+                    <DataGridTextColumn Header="Наименование помещения" 
                                         CellStyle="{StaticResource DGColumnCellLeftStyle}"
                                         Width="180" 
                                         Binding="{Binding ShortName}">
@@ -282,11 +462,7 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Номер помещения" 
-                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="100" 
-                                        Binding="{Binding RoomNumber}"/>
+                    
                     <DataGridTemplateColumn Header="Мин. площадь" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
@@ -306,12 +482,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Рабочих мест/посетителей" 
-                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="90"
-                                        Binding="{Binding Rab_mesta_posetiteli}"/>
-                    <DataGridTextColumn Header="Количество персонала" 
+                    
+                    <DataGridTextColumn Header="Количество рабочих мест" 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="90"
@@ -452,7 +624,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Приток" 
+                    <DataGridTemplateColumn Header="Приток, крат" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                             Width="80">
@@ -470,7 +642,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Вытяжка" 
+                    <DataGridTemplateColumn Header="Вытяжка, крат" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                             Width="80">
@@ -539,42 +711,6 @@
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <TextBox Text="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="КЕО при бок. ест. осв." 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                            Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <customControls:CustomTextBlockColumnTemplate PropertyName="KEO_est_osv"
-                                    Text="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
-                                    FirstValue="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
-                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding KEO_est_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="КЕО при бок. совм. осв." 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                            Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <customControls:CustomTextBlockColumnTemplate PropertyName="KEO_sovm_osv"
-                                    Text="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
-                                    FirstValue="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
-                                    SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding KEO_sovm_osv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" TextWrapping="Wrap"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -698,7 +834,7 @@
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Холодоснабжение" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                            CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                             Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -728,7 +864,7 @@
             <xctk:IntegerUpDown 
                 Background="#b1b7c2"
                 ButtonSpinnerWidth="30"
-                Minimum="1"
+                Minimum="1" Maximum="100"
                 Value="{Binding NumberNewStrings}"
                 VerticalAlignment="Center" 
                 VerticalContentAlignment="Center"
@@ -748,7 +884,7 @@
 
         <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3">
             <Button Command="{Binding PushToDbCommand}" 
-                    Content="Отправить изменения в БД" 
+                    Content="Сохранить изменения в БД" 
                     Style="{StaticResource ButtonStyle01}"
                     Width="190" Height="35" 
                     DockPanel.Dock="Right" 

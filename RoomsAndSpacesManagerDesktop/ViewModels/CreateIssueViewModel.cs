@@ -106,6 +106,35 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             ProjectSettingsCommand = new RelayCommand(OnProjectSettingsCommandExecuted, CanProjectSettingsCommandExecute);
             CopyNameToShortNameCommand = new RelayCommand(OnCopyNameToShortNameCommandExecuted, CanCopyNameToShortNameCommandExecute);
 
+            SetDefaultValue_MinAreaCommand = new RelayCommand(OnSetDefaultValue_MinAreaCommandExecuted, CanSetDefaultValue_MinAreaCommandExecute);
+
+            SetDefaultValue_Class_chistoti_SanPinCommand = new RelayCommand(OnSetDefaultValue_Class_chistoti_SanPinCommandExecuted, CanSetDefaultValue_Class_chistoti_SanPinCommandExecute);
+            SetDefaultValue_Class_chistoti_SP_158Command = new RelayCommand(OnSetDefaultValue_Class_chistoti_SP_158CommandExecuted, CanSetDefaultValue_Class_chistoti_SP_158CommandExecute);
+            SetDefaultValue_Class_chistoti_GMPCommand = new RelayCommand(OnSetDefaultValue_Class_chistoti_GMPCommandExecuted, CanSetDefaultValue_Class_chistoti_GMPCommandExecute);
+
+            SetDefaultValue_T_calcCommand = new RelayCommand(OnSetDefaultValue_T_calcCommandExecuted, CanSetDefaultValue_T_calcCommandExecute);
+            SetDefaultValue_T_minCommand = new RelayCommand(OnSetDefaultValue_T_minCommandExecuted, CanSetDefaultValue_T_minCommandExecute);
+            SetDefaultValue_T_maxCommand = new RelayCommand(OnSetDefaultValue_T_maxCommandExecuted, CanSetDefaultValue_T_maxCommandExecute);
+
+            SetDefaultValue_VityazhkaCommand = new RelayCommand(OnSetDefaultValue_VityazhkaCommandExecuted, CanSetDefaultValue_VityazhkaCommandExecute);
+            SetDefaultValue_PritokCommand = new RelayCommand(OnSetDefaultValue_PritokCommandExecuted, CanSetDefaultValue_PritokCommandExecute);
+
+            SetDefaultValue_Discription_ARCommand = new RelayCommand(OnSetDefaultValue_Discription_ARCommandExecuted, CanSetDefaultValue_Discription_ARCommandExecute);
+            SetDefaultValue_Ot_vlazhnostCommand = new RelayCommand(OnSetDefaultValue_Ot_vlazhnostCommandExecuted, CanSetDefaultValue_Ot_vlazhnostCommandExecute);
+            
+            SetDefaultValue_Discription_OVCommand = new RelayCommand(OnSetDefaultValue_Discription_OVCommandExecuted, CanSetDefaultValue_Discription_OVCommandExecute);
+            SetDefaultValue_Equipment_VKCommand = new RelayCommand(OnSetDefaultValue_Equipment_VKCommandExecuted, CanSetDefaultValue_Equipment_VKCommandExecute);
+            SetDefaultValue_Osveshennost_pro_obshem_osvechCommand = new RelayCommand(OnSetDefaultValue_Osveshennost_pro_obshem_osvechCommandExecuted, CanSetDefaultValue_Osveshennost_pro_obshem_osvechCommandExecute);
+
+            SetDefaultValue_Group_el_bezCommand = new RelayCommand(OnSetDefaultValue_Group_el_bezCommandExecuted, CanSetDefaultValue_Group_el_bezCommandExecute);
+            SetDefaultValue_Discription_EOMCommand = new RelayCommand(OnSetDefaultValue_Discription_EOMCommandExecuted, CanSetDefaultValue_Discription_EOMCommandExecute);
+            SetDefaultValue_Discription_SSCommand = new RelayCommand(OnSetDefaultValue_Discription_SSCommandExecuted, CanSetDefaultValue_Discription_SSCommandExecute);
+
+            SetDefaultValue_Discription_AK_ATHCommand = new RelayCommand(OnSetDefaultValue_Discription_AK_ATHCommandExecuted, CanSetDefaultValue_Discription_AK_ATHCommandExecute);
+            SetDefaultValue_Discription_GSVCommand = new RelayCommand(OnSetDefaultValue_Discription_GSVCommandExecuted, CanSetDefaultValue_Discription_GSVCommandExecute);
+            SetDefaultValue_Discription_HSCommand = new RelayCommand(OnSetDefaultValue_Discription_HSCommandExecuted, CanSetDefaultValue_Discription_HSCommandExecute);
+
+
             #endregion
 
         }
@@ -537,13 +566,15 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                     //var eee = equipments.GetEquipments();
 
                 }
-
+                //RoomsNames.Refresh();
                 selectedRoomName = null;
+                
             }
         }
 
         private void AddRoomInfo()
         {
+            SelectedRoom.ShortName = SelectedRoomName.Name;
             SelectedRoom.RoomNameId = SelectedRoomName.Id;
             SelectedRoom.Min_area = SelectedRoomName.Min_area;
             SelectedRoom.Class_chistoti_GMP = SelectedRoomName.Class_chistoti_GMP;
@@ -608,6 +639,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (RoomNameFiltering != "")
             {
                 RoomsNames = CollectionViewSource.GetDefaultView(allRoomNames);
+                IEqualityComparer<string> comparer = StringComparer.InvariantCultureIgnoreCase; //?
                 RoomsNames.Filter = delegate (object item)
                 {
                     RoomNameDto user = item as RoomNameDto;
@@ -725,7 +757,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         #endregion
 
-        #region Комманд. Копирвание Имени в краткое имя
+        #region Комманд. Копирoвание Имени в Kраткое имя
         public ICommand CopyNameToShortNameCommand { get; set; }
         private void OnCopyNameToShortNameCommandExecuted(object p)
         {
@@ -777,7 +809,6 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         #region Комманд. Получить значение по умолчанию по выбранной строке
         public ICommand SetDefaultValueCommand { get; set; }
-
         private void OnSetDefaultValueCommandExecuted(object p)
         {
 
@@ -795,14 +826,14 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 room.T_min = room.RoomName.T_min;
                 room.Pritok = room.RoomName.Pritok;
                 room.Vityazhka = room.RoomName.Vityazhka;
+                room.Discription_AR = room.RoomName.Discription_AR;
                 room.Ot_vlazhnost = room.RoomName.Ot_vlazhnost;
-                room.KEO_est_osv = room.RoomName.KEO_est_osv;
-                room.KEO_sovm_osv = room.RoomName.KEO_sovm_osv;
+                //room.KEO_est_osv = room.RoomName.KEO_est_osv;
+                //room.KEO_sovm_osv = room.RoomName.KEO_sovm_osv;
                 room.Discription_OV = room.RoomName.Discription_OV;
                 room.Osveshennost_pro_obshem_osvech = room.RoomName.Osveshennost_pro_obshem_osvech;
                 room.Group_el_bez = room.RoomName.Group_el_bez;
-                room.Discription_EOM = room.RoomName.Discription_EOM;
-                room.Discription_AR = room.RoomName.Discription_AR;
+                room.Discription_EOM = room.RoomName.Discription_EOM; 
                 room.Equipment_VK = room.RoomName.Equipment_VK;
                 room.Discription_SS = room.RoomName.Discription_SS;
                 room.Discription_AK_ATH = room.RoomName.Discription_AK_ATH;
@@ -816,6 +847,329 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             //Rooms.Refresh();
         }
         private bool CanSetDefaultValueCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_MinAreaCommand { get; set; }
+        private void OnSetDefaultValue_MinAreaCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Min_area = room.RoomName.Min_area;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_MinAreaCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Class_chistoti_SanPinCommand { get; set; }
+        private void OnSetDefaultValue_Class_chistoti_SanPinCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Class_chistoti_SanPin = room.RoomName.Class_chistoti_SanPin;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Class_chistoti_SanPinCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Class_chistoti_SP_158Command { get; set; }
+        private void OnSetDefaultValue_Class_chistoti_SP_158CommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Class_chistoti_SP_158 = room.RoomName.Class_chistoti_SP_158;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Class_chistoti_SP_158CommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Class_chistoti_GMPCommand { get; set; }
+        private void OnSetDefaultValue_Class_chistoti_GMPCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Class_chistoti_GMP = room.RoomName.Class_chistoti_GMP;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Class_chistoti_GMPCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_T_calcCommand { get; set; }
+        private void OnSetDefaultValue_T_calcCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.T_calc = room.RoomName.T_calc;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_T_calcCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_T_minCommand { get; set; }
+        private void OnSetDefaultValue_T_minCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.T_calc = room.RoomName.T_min;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_T_minCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_T_maxCommand { get; set; }
+        private void OnSetDefaultValue_T_maxCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.T_calc = room.RoomName.T_max;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_T_maxCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_VityazhkaCommand { get; set; }
+        private void OnSetDefaultValue_VityazhkaCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Vityazhka = room.RoomName.Vityazhka;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_VityazhkaCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_PritokCommand { get; set; }
+        private void OnSetDefaultValue_PritokCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Pritok = room.RoomName.Pritok;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_PritokCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_ARCommand { get; set; }
+        private void OnSetDefaultValue_Discription_ARCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_AR = room.RoomName.Discription_AR;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_ARCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Ot_vlazhnostCommand { get; set; }
+        private void OnSetDefaultValue_Ot_vlazhnostCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Ot_vlazhnost = room.RoomName.Ot_vlazhnost;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Ot_vlazhnostCommandExecute(object p) => true;
+
+
+        public ICommand SetDefaultValue_Discription_OVCommand { get; set; }
+        private void OnSetDefaultValue_Discription_OVCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_OV = room.RoomName.Discription_OV;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_OVCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Equipment_VKCommand { get; set; }
+        private void OnSetDefaultValue_Equipment_VKCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Equipment_VK = room.RoomName.Equipment_VK;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Equipment_VKCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Osveshennost_pro_obshem_osvechCommand { get; set; }
+        private void OnSetDefaultValue_Osveshennost_pro_obshem_osvechCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Osveshennost_pro_obshem_osvech = room.RoomName.Osveshennost_pro_obshem_osvech;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Osveshennost_pro_obshem_osvechCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Group_el_bezCommand { get; set; }
+        private void OnSetDefaultValue_Group_el_bezCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Group_el_bez = room.RoomName.Group_el_bez;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Group_el_bezCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_EOMCommand { get; set; }
+        private void OnSetDefaultValue_Discription_EOMCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_EOM = room.RoomName.Discription_EOM;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_EOMCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_SSCommand { get; set; }
+        private void OnSetDefaultValue_Discription_SSCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_SS = room.RoomName.Discription_SS;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_SSCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_AK_ATHCommand { get; set; }
+        private void OnSetDefaultValue_Discription_AK_ATHCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_AK_ATH = room.RoomName.Discription_AK_ATH;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_AK_ATHCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_GSVCommand { get; set; }
+        private void OnSetDefaultValue_Discription_GSVCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_GSV = room.RoomName.Discription_GSV;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_GSVCommandExecute(object p) => true;
+
+        public ICommand SetDefaultValue_Discription_HSCommand { get; set; }
+        private void OnSetDefaultValue_Discription_HSCommandExecuted(object p)
+        {
+
+            RoomDto room = p as RoomDto;
+            if (room.Name != null)
+            {
+                room.Discription_HS = room.RoomName.Discription_HS;
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            }
+
+
+            //Rooms.Refresh();
+        }
+        private bool CanSetDefaultValue_Discription_HSCommandExecute(object p) => true;
+
+
         #endregion
 
         #region Комманд. Открыть окно с оборудованием
@@ -862,7 +1216,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                         Rooms = CollectionViewSource.GetDefaultView(roomDtos);
                         Rooms.Refresh();
                     }
-                }   
+                }
             }
         }
         private bool CanAddNewRowCommandExecute(object p)

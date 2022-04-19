@@ -24,5 +24,11 @@ namespace RoomsAndSpacesManagerDesktop.Views.UserControls
         {
             InitializeComponent();
         }
+
+        private void dgRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //string str = dgRooms.SelectedCells.First().Column.Header.ToString();
+            //MessageBox.Show(str);
+        }
     }
 }

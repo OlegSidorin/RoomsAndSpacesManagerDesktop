@@ -70,7 +70,7 @@
                        Visibility="{Binding IsChecked,ElementName=chk,Converter={StaticResource b2v}}">
                 
                 <Button Command="{Binding AddNewCategoryCommand}" Content="+"  
-                        Margin="15 0 0 0" Width="20" Height="20" 
+                        Margin="45 0 0 0" Width="20" Height="20" 
                         DockPanel.Dock="Left"  VerticalAlignment="Center"/>
                 <TextBox Text="{Binding NewCategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Left" 
                          Height="25" Width="150" 
@@ -113,8 +113,6 @@
                                Height="15"/>
                         <TextBlock Text="Очистить фильтры" 
                                    Margin="3 0 0 0"/>
-
-
                     </StackPanel>
                 </Button>
             </DockPanel>
@@ -160,6 +158,7 @@
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="45" IsReadOnly="True"/>
+                    
                     <DataGridTemplateColumn Header="Подкатегория" Width="50"  
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
@@ -305,7 +304,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Приток" 
+                    <DataGridTemplateColumn Header="Приток, крат" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="80">
@@ -321,7 +320,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Вытяжка" 
+                    <DataGridTemplateColumn Header="Вытяжка, крат" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="80">
@@ -349,38 +348,6 @@
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <TextBox Text="{Binding Ot_vlazhnost}" TextWrapping="Wrap" AcceptsReturn="True"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="КЕО при бок. ест. осв." 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding KEO_est_osv}" TextWrapping="Wrap"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding KEO_est_osv}" TextWrapping="Wrap" AcceptsReturn="True"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Header="КЕО при бок. совм. осв." 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
-                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding KEO_sovm_osv}" TextWrapping="Wrap"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox Text="{Binding KEO_sovm_osv}" TextWrapping="Wrap" AcceptsReturn="True"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -551,7 +518,7 @@
             <DockPanel Grid.Row="4" Grid.Column="2">
                 <Button Command="{Binding PushToDbCommand}" 
                         Style="{StaticResource ButtonStyle01}"
-                        Content="Отправить изменения в БД" 
+                        Content="Сохранить изменения в БД" 
                         Width="190" Height="35" 
                         DockPanel.Dock="Right" 
                         Margin="0 0 4 0"/>
