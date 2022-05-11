@@ -452,9 +452,9 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Наименование помещения" 
+                    <DataGridTextColumn Header="Наименование помещения"  
                                         CellStyle="{StaticResource DGColumnCellLeftStyle}"
-                                        Width="180" 
+                                        Width="180"
                                         Binding="{Binding ShortName}">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -462,7 +462,6 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    
                     <DataGridTemplateColumn Header="Мин. площадь" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
@@ -482,7 +481,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    
                     <DataGridTextColumn Header="Количество рабочих мест" 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"

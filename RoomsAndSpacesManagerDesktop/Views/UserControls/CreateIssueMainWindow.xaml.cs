@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RoomsAndSpacesManagerDesktop.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +24,20 @@ namespace RoomsAndSpacesManagerDesktop.Views.UserControls
         public CreateIssueMainWindow()
         {
             InitializeComponent();
+            CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
+            vm.ThisWindow = this;
         }
 
         private void dgRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string str = dgRooms.SelectedCells.First().Column.Header.ToString();
-            //MessageBox.Show(str);
+            //if (dgRooms.SelectedCells != null)
+            //{
+            //    string str = dgRooms.SelectedCells.First().Column.Header.ToString();
+            //    MessageBox.Show(str);
+            //}
+            CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
+            vm.ThisWindow = this;
+
         }
     }
 }

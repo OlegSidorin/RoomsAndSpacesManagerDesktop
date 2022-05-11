@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using RoomsAndSpacesManagerDataBase.Dto;
@@ -27,6 +28,21 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
     class CreateIssueViewModel : ViewModel
     {
         #region филды
+
+        private Views.UserControls.CreateIssueMainWindow _thisWindow;
+        public Views.UserControls.CreateIssueMainWindow ThisWindow
+        {
+            get { return _thisWindow; }
+            set
+            {
+                if (_thisWindow != value)
+                {
+                    _thisWindow = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         ProjectsDbContext projContext = new ProjectsDbContext();
         List<RoomDto> roomDtos;
         RoomsDbContext roomsContext = new RoomsDbContext();
@@ -155,8 +171,22 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         }
 
+       
+
         private bool CanLoadedCommandExecute(object obj) => true;
         #endregion
+
+        private void RefreshAndFocusToSelectedItem()
+        {
+            Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            Rooms.Refresh();
+
+            ThisWindow.dgRooms.Focus();
+            DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
+            ThisWindow.dgRooms.CurrentCell = cellInfo;
+            ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.SelectedItem);
+            ThisWindow.dgRooms.BeginEdit();
+        }
 
         /*Создание нового проекта и здания~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
@@ -565,10 +595,18 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                     ////List<EquipmentDto> equipment = equipmentDbContext.GetEquipmentsWithSortItems(SelectedRoomName);
                     //var eee = equipments.GetEquipments();
 
+                    //MessageBox.Show(SelectedRoom.Name + "\n" + SelectedRoomName.Name);
+                    SelectedRoom.ShortName = SelectedRoomName.Name;
+                    
+
                 }
                 //RoomsNames.Refresh();
                 selectedRoomName = null;
-                
+                ThisWindow.dgRooms.CommitEdit();
+                ThisWindow.dgRooms.CancelEdit();
+                RefreshAndFocusToSelectedItem();
+                //ThisWindow.dgRooms.CommitEdit();
+
             }
         }
 
@@ -767,8 +805,16 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 if (roomDto != null)
                 {
                     roomDto.ShortName = roomDto.Name;
-                    Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-                    Rooms.Refresh();
+                    RefreshAndFocusToSelectedItem();
+                    //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                    //Rooms.Refresh();
+                    
+                    //ThisWindow.dgRooms.Focus();
+                    //DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
+                    //ThisWindow.dgRooms.CurrentCell = cellInfo;
+                    //ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.SelectedItem);
+                    //ThisWindow.dgRooms.BeginEdit();
+                    
                 }
 
 
