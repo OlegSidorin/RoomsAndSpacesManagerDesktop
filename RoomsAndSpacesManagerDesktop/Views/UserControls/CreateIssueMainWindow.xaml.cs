@@ -24,8 +24,9 @@ namespace RoomsAndSpacesManagerDesktop.Views.UserControls
         public CreateIssueMainWindow()
         {
             InitializeComponent();
-            CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
-            vm.ThisWindow = this;
+            //CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
+            //MessageBox.Show("bybwbfkbpfwbz");
+            CreateIssueViewModel.ThisWindow = this;
         }
 
         private void dgRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -35,8 +36,8 @@ namespace RoomsAndSpacesManagerDesktop.Views.UserControls
             //    string str = dgRooms.SelectedCells.First().Column.Header.ToString();
             //    MessageBox.Show(str);
             //}
-            CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
-            vm.ThisWindow = this;
+            //CreateIssueViewModel vm = (CreateIssueViewModel)this.DataContext;
+            //vm.ThisWindow = this;
 
         }
     }

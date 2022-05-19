@@ -72,6 +72,42 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
             return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
         }
 
+        public List<RoomDto> AddNewRoom(SubdivisionDto subdiv, RoomDto room, out RoomDto roomDtoNew)
+        {
+            roomDtoNew = new RoomDto()
+            {
+                SubdivisionId = subdiv.Id,
+                RoomNameId = room.RoomName.Id,
+                ShortName = room.ShortName,
+                Min_area = room.RoomName.Min_area,
+                Class_chistoti_GMP = room.RoomName.Class_chistoti_GMP,
+                Class_chistoti_SanPin = room.RoomName.Class_chistoti_SanPin,
+                Class_chistoti_SP_158 = room.RoomName.Class_chistoti_SP_158,
+                T_calc = room.RoomName.T_calc,
+                T_max = room.RoomName.T_max,
+                T_min = room.RoomName.T_min,
+                Pritok = room.RoomName.Pritok,
+                Vityazhka = room.RoomName.Vityazhka,
+                Discription_AR = room.RoomName.Discription_AR,
+                Ot_vlazhnost = room.RoomName.Ot_vlazhnost,
+                Discription_OV = room.RoomName.Discription_OV,
+                Osveshennost_pro_obshem_osvech = room.RoomName.Osveshennost_pro_obshem_osvech,
+                Group_el_bez = room.RoomName.Group_el_bez,
+                Discription_EOM = room.RoomName.Discription_EOM,
+                Equipment_VK = room.RoomName.Equipment_VK,
+                Discription_SS = room.RoomName.Discription_SS,
+                Discription_AK_ATH = room.RoomName.Discription_AK_ATH,
+                Discription_GSV = room.RoomName.Discription_GSV,
+                Discription_HS = room.RoomName.Discription_HS
+
+            };
+            context.RaSM_Rooms.Add(roomDtoNew);
+
+            context.SaveChanges();
+            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
+        }
+
+
         #endregion
 
 

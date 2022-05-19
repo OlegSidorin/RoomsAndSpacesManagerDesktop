@@ -529,6 +529,11 @@
   <ItemGroup>
     <Resource Include="Resources\point-24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\duplicate-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -187,6 +187,14 @@
                                                    Height="15"/>
                                         </MenuItem.Icon>
                                     </MenuItem>
+                                    <MenuItem Header="Дублировать (будет в конце таблицы)" 
+                                              Command="{Binding PlacementTarget.Tag.DuplicateRowCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                              CommandParameter="{Binding }" >
+                                        <MenuItem.Icon>
+                                            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/duplicate-24.png" 
+                                                   Height="15"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
                                     <MenuItem Header="Установить все значения по умолчанию" 
                                               Command="{Binding PlacementTarget.Tag.SetDefaultValueCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
                                               CommandParameter="{Binding }" >

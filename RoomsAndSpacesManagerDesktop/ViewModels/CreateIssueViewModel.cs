@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using RoomsAndSpacesManagerDataBase.Dto;
 using RoomsAndSpacesManagerDataBase.Dto.RoomInfrastructure;
 using RoomsAndSpacesManagerDesktop.Data.DataBaseContext;
@@ -29,8 +31,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
     {
         #region филды
 
-        private Views.UserControls.CreateIssueMainWindow _thisWindow;
-        public Views.UserControls.CreateIssueMainWindow ThisWindow
+        private static Views.UserControls.CreateIssueMainWindow _thisWindow;
+        public static Views.UserControls.CreateIssueMainWindow ThisWindow
         {
             get { return _thisWindow; }
             set
@@ -38,7 +40,6 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 if (_thisWindow != value)
                 {
                     _thisWindow = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -106,6 +107,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             AddNewBuildingCommand = new RelayCommand(OnAddNewBuildingCommandExecuted, CanAddNewBuildingCommandExecute);
             DeleteCommand = new RelayCommand(OnDeleteCommandExecuted, CanDeleteCommandExecute);
             DeleteIssueCommand = new RelayCommand(OnDeleteIssueCommandExecuted, CanDeleteIssueCommandExecute);
+            DuplicateRowCommand = new RelayCommand(OnDuplicateRowCommandExecuted, CanDuplicateRowCommandExecute);
             SetDefaultValueCommand = new RelayCommand(OnSetDefaultValueCommandExecuted, CanSetDefaultValueCommandExecute);
             AddNewSubdivisionCommand = new RelayCommand(OnAddNewSubdivisionCommandExecuted, CanAddNewSubdivisionCommandExecute);
             RenderComboboxCommand = new RelayCommand(OnRenderComboboxCommandExecuted, CanRenderComboboxCommandExecute);
@@ -180,12 +182,99 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
         {
             Rooms = CollectionViewSource.GetDefaultView(roomDtos);
             Rooms.Refresh();
+            
+            if (ThisWindow.dgRooms.SelectedItem != null)
+            {
+                ThisWindow.dgRooms.Focus();
+                DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
+                ThisWindow.dgRooms.CurrentCell = cellInfo;
+                ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.SelectedItem);
+                ThisWindow.dgRooms.BeginEdit();
+            }
+            
+        }
+        private void RefreshAndFocusToSelectedIndex()
+        {
+            //ThisWindow.dgRooms.Focus();
 
-            ThisWindow.dgRooms.Focus();
-            DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
-            ThisWindow.dgRooms.CurrentCell = cellInfo;
-            ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.SelectedItem);
-            ThisWindow.dgRooms.BeginEdit();
+            int selectIndex = ThisWindow.dgRooms.SelectedIndex;
+
+            void tryfunc(int ind)
+            {
+                ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.Items.GetItemAt(ind));
+                ThisWindow.dgRooms.SelectedItem = ThisWindow.dgRooms.Items.GetItemAt(ind);
+                ThisWindow.dgRooms.Focus();
+            }
+
+            //bool success = false;
+
+            //MessageBox.Show(selectIndex.ToString());
+            //DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
+            //ThisWindow.dgRooms.CurrentCell = cellInfo;
+
+            //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            Rooms.Refresh();
+
+            //Thread.Sleep(msec);
+            int i = 0;
+            if (selectIndex > 0)
+            {
+                do
+                {
+                    try
+                    {
+                        tryfunc(selectIndex);
+                        //success = true;
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        //success = false;
+                        Thread.Sleep(100);
+                        i += 1;
+                        //Toolkit.MessageBox.Show(i.ToString() + ": " + ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                while (true);
+            }
+            
+
+            //try
+            //{
+            //    if (selectIndex > 0)
+            //    {
+            //        ThisWindow.dgRooms.ScrollIntoView(ThisWindow.dgRooms.Items.GetItemAt(selectIndex));
+            //        ThisWindow.dgRooms.SelectedItem = ThisWindow.dgRooms.Items.GetItemAt(selectIndex);
+            //        ThisWindow.dgRooms.Focus();
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Toolkit.MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
+
+        }
+        private async void RefreshAndFocusToLastItem()
+        {
+            await Task.Run(() =>
+            {
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.Refresh();
+                Thread.Sleep(1200);
+            });
+
+            //MessageBox.Show(ThisWindow.dgRooms.Items.Count.ToString());
+
+            if (ThisWindow.dgRooms.Items.Count > 0)
+            {
+                if (VisualTreeHelper.GetChild(ThisWindow.dgRooms, 0) is Decorator border)
+                {
+                    var scroll = border.Child as ScrollViewer;
+                    //MessageBox.Show("(scroll != null) " + (scroll != null).ToString());
+                    if (scroll != null) scroll.ScrollToEnd();
+                }
+            }
+
         }
 
         /*Создание нового проекта и здания~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -596,7 +685,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                     //var eee = equipments.GetEquipments();
 
                     //MessageBox.Show(SelectedRoom.Name + "\n" + SelectedRoomName.Name);
-                    SelectedRoom.ShortName = SelectedRoomName.Name;
+
+                    //if (string.IsNullOrEmpty(SelectedRoom.ShortName)) SelectedRoom.ShortName = SelectedRoomName.Name;
                     
 
                 }
@@ -604,15 +694,14 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 selectedRoomName = null;
                 ThisWindow.dgRooms.CommitEdit();
                 ThisWindow.dgRooms.CancelEdit();
-                RefreshAndFocusToSelectedItem();
-                //ThisWindow.dgRooms.CommitEdit();
+                RefreshAndFocusToSelectedIndex();
 
             }
         }
 
         private void AddRoomInfo()
         {
-            SelectedRoom.ShortName = SelectedRoomName.Name;
+            if (string.IsNullOrEmpty(SelectedRoom.ShortName)) SelectedRoom.ShortName = SelectedRoomName.Name;
             SelectedRoom.RoomNameId = SelectedRoomName.Id;
             SelectedRoom.Min_area = SelectedRoomName.Min_area;
             SelectedRoom.Class_chistoti_GMP = SelectedRoomName.Class_chistoti_GMP;
@@ -805,7 +894,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 if (roomDto != null)
                 {
                     roomDto.ShortName = roomDto.Name;
-                    RefreshAndFocusToSelectedItem();
+                    RefreshAndFocusToSelectedIndex();
                     //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
                     //Rooms.Refresh();
                     
@@ -816,7 +905,6 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                     //ThisWindow.dgRooms.BeginEdit();
                     
                 }
-
 
             }
             catch (Exception ex)
@@ -850,6 +938,41 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             }
         }
         private bool CanDeleteIssueCommandExecute(object p) => true;
+
+        #endregion
+
+        #region Комманд. Дублирование строки
+        public ICommand DuplicateRowCommand { get; set; }
+        private void OnDuplicateRowCommandExecuted(object p)
+        {
+            if ((p as RoomDto).Id == default) // id == 0?
+            {
+                //roomDtos.Remove(p as RoomDto);
+                //RoomDto roomDto = p as RoomDto;
+                //MessageBox.Show(roomDto.Id.ToString());
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.Refresh();
+                RefreshAndFocusToLastItem();
+            }
+            else
+            {
+                //projContext.RemoveRoom(p as RoomDto);
+                
+                RoomDto room = p as RoomDto;
+                if (SelectedBuilding != null)
+                {
+                    RoomDto roomDtoNew = new RoomDto();
+                    roomDtos = projContext.AddNewRoom(SelectedSubdivision, room, out roomDtoNew);
+                }
+
+                //MessageBox.Show(roomDto.Id.ToString());
+                //roomDtos = projContext.GetRooms(SelectedSubdivision);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.Refresh();
+                RefreshAndFocusToLastItem();
+            }
+        }
+        private bool CanDuplicateRowCommandExecute(object p) => true;
 
         #endregion
 
@@ -1247,7 +1370,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
         private void OnAddNewRowCommandExecuted(object p)
         {
             var success = int.TryParse(NumberNewStrings, out int num);
-
+            //MessageBox.Show(NumberNewStrings.ToString());
             if (success)
             {
                 for (int i = 1; i <= num; i++)
@@ -1259,11 +1382,14 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                         //    SubdivisionId = SelectedSubdivision.Id
                         //});
                         roomDtos = projContext.AddNewRoom(SelectedSubdivision);
-                        Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-                        Rooms.Refresh();
+                        //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                        //Rooms.Refresh();
+                        
                     }
                 }
+                RefreshAndFocusToLastItem();
             }
+            
         }
         private bool CanAddNewRowCommandExecute(object p)
         {
@@ -1312,13 +1438,17 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 projContext.AddNewRooms(roomDtos);
                 projContext.SaveChanges();
                 roomDtos = projContext.GetRooms(SelectedSubdivision);
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-                Rooms.Refresh();
-                MessageBox.Show("Данные успешно загруженны в базу данных", "Статус", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.Refresh();
+                RefreshAndFocusToSelectedIndex();
+                Toolkit.MessageBox.Show("Данные успешно загруженны в базу данных", "Статус", MessageBoxButton.OK, MessageBoxImage.Information);
+                //MessageBox.Show("Данные успешно загруженны в базу данных", "Статус", MessageBoxButton.OK, MessageBoxImage.Information);
+                ThisWindow.dgRooms.Focus();
             }
             else
             {
-                MessageBox.Show("Ошибка! Нет выбранных помещений", "Статус", MessageBoxButton.OK, MessageBoxImage.Error);
+                Toolkit.MessageBox.Show("Ошибка! Нет выбранных помещений", "Статус", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Ошибка! Нет выбранных помещений", "Статус", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

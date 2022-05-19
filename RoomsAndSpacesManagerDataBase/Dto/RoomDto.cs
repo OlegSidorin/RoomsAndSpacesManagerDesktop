@@ -80,7 +80,10 @@ namespace RoomsAndSpacesManagerDataBase.Dto
             this.El_Nagruzka = oldRoom.El_Nagruzka;
         }
 
-
+        public RoomDto Clone()
+        {
+            return (RoomDto)this.MemberwiseClone();
+        }
 
 
         #region Поля для выгрузки
