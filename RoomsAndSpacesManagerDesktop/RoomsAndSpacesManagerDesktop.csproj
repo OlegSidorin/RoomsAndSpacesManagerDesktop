@@ -249,6 +249,22 @@
     <Compile Include="Migrations\202111011306044_test migration 01.11.designer.cs">
       <DependentUpon>202111011306044_test migration 01.11.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206021359334_addRowNumberInRaSM_Rooms.cs" />
+    <Compile Include="Migrations\202206021359334_addRowNumberInRaSM_Rooms.designer.cs">
+      <DependentUpon>202206021359334_addRowNumberInRaSM_Rooms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206021411301_addRowNumberInRaSM_Rooms_2.cs" />
+    <Compile Include="Migrations\202206021411301_addRowNumberInRaSM_Rooms_2.designer.cs">
+      <DependentUpon>202206021411301_addRowNumberInRaSM_Rooms_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206021428043_deleteRowNumber.cs" />
+    <Compile Include="Migrations\202206021428043_deleteRowNumber.designer.cs">
+      <DependentUpon>202206021428043_deleteRowNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206021429534_addRowNumberInRaSM_Rooms_3.cs" />
+    <Compile Include="Migrations\202206021429534_addRowNumberInRaSM_Rooms_3.designer.cs">
+      <DependentUpon>202206021429534_addRowNumberInRaSM_Rooms_3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CsvModels\UploadToCsvModel.cs" />
     <Compile Include="Models\DbModels\Base\MainDbContext.cs" />
@@ -466,6 +482,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111011306044_test migration 01.11.resx">
       <DependentUpon>202111011306044_test migration 01.11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206021359334_addRowNumberInRaSM_Rooms.resx">
+      <DependentUpon>202206021359334_addRowNumberInRaSM_Rooms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206021411301_addRowNumberInRaSM_Rooms_2.resx">
+      <DependentUpon>202206021411301_addRowNumberInRaSM_Rooms_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206021428043_deleteRowNumber.resx">
+      <DependentUpon>202206021428043_deleteRowNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206021429534_addRowNumberInRaSM_Rooms_3.resx">
+      <DependentUpon>202206021429534_addRowNumberInRaSM_Rooms_3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

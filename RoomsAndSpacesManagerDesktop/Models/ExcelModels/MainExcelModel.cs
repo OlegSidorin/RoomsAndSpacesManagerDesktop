@@ -147,11 +147,11 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                     colCount++;
 
                     //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Kolichestvo_personala);
-                    worksheet.Cells[rowCount, colCount].Value = "Количество рабочих мест";
+                    worksheet.Cells[rowCount, colCount].Value = "Количество людей с постоянным пребыванием";
                     colCount++;
 
                     //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Kolichestvo_posetitelei);
-                    worksheet.Cells[rowCount, colCount].Value = "Количество посетителей";
+                    worksheet.Cells[rowCount, colCount].Value = "Количество людей с не постоянным пребыванием";
                     colCount++;
 
                     //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Categoty_pizharoopasnosti);

@@ -165,7 +165,7 @@
                                         IsReadOnly="True">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding SubCategory}"/>
+                                <TextBlock Text="{Binding SubCategotyId}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -272,7 +272,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Температура мин, °C" 
+                    <DataGridTemplateColumn Header="Температура мин., °C" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="90">
@@ -288,7 +288,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Температура макс, °C" 
+                    <DataGridTemplateColumn Header="Температура макс., °C" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="90">
@@ -304,7 +304,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Приток, крат" 
+                    <DataGridTemplateColumn Header="Приток, крат." 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="80">
@@ -320,7 +320,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Вытяжка, крат" 
+                    <DataGridTemplateColumn Header="Вытяжка, крат." 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="80">
@@ -336,7 +336,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Отн. влажность,%" 
+                    <DataGridTemplateColumn Header="Отн. влажность, %" 
                                             HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="80">

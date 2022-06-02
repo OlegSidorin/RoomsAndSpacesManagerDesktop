@@ -175,7 +175,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             { 
                 if (RoomNameFiltering != "")
                 {
-                    RoomsList = roomsContext.GetAllRoomNames();
+                    //RoomsList = roomsContext.GetAllRoomNames();
                     Rooms = CollectionViewSource.GetDefaultView(RoomsList);
                     Rooms.Filter = delegate (object item)
                     {

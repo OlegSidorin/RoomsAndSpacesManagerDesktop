@@ -756,21 +756,30 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         private void OnRenderComboboxCommandExecuted(object p)
         {
+            
             if (p != null)
             {
+                //MessageBox.Show(p.GetType().ToString());
+                //SubCategoryDto subcdto = p as SubCategoryDto;
+                //SubCategoryDto subcdto = p as SubCategoryDto;
+                //MessageBox.Show(subcdto.Id.ToString() + ":" + subcdto.Name.ToString());
                 roomsNamesList = RoomsPropertiesViewModel.roomsContext.GetRoomNames(p as SubCategoryDto);
                 RoomsNames = CollectionViewSource.GetDefaultView(roomsNamesList);
                 RoomsNames.Refresh();
             }
+            else
+            {
+                RoomsNames = CollectionViewSource.GetDefaultView(allRoomNames);
+            }
 
             if (RoomNameFiltering != "")
             {
-                RoomsNames = CollectionViewSource.GetDefaultView(allRoomNames);
+                
                 IEqualityComparer<string> comparer = StringComparer.InvariantCultureIgnoreCase; //?
                 RoomsNames.Filter = delegate (object item)
                 {
-                    RoomNameDto user = item as RoomNameDto;
-                    if (user != null && user.Name != null && user.Name.ToLower().Contains(RoomNameFiltering.ToLower())) return true;
+                    RoomNameDto roomNameDto = item as RoomNameDto;
+                    if (roomNameDto != null && roomNameDto.Name != null && roomNameDto.Name.ToLower().Contains(RoomNameFiltering.ToLower())) return true;
                     return false;
                 };
                 RoomsNames.Refresh();
@@ -1104,7 +1113,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             RoomDto room = p as RoomDto;
             if (room.Name != null)
             {
-                room.T_calc = room.RoomName.T_min;
+                room.T_min = room.RoomName.T_min;
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
             }
 
@@ -1120,7 +1129,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             RoomDto room = p as RoomDto;
             if (room.Name != null)
             {
-                room.T_calc = room.RoomName.T_max;
+                room.T_max = room.RoomName.T_max;
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
             }
 

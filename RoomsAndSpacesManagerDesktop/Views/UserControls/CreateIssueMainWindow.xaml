@@ -167,7 +167,7 @@
                       VerticalGridLinesBrush="#aab"
                       AlternatingRowBackground="#d1d7e2" 
                           CanUserAddRows="False"
-                          FrozenColumnCount ="4"
+                          FrozenColumnCount ="5"
                           EnableRowVirtualization="True"
                           CanUserDeleteRows="False"
                           SelectedItem="{Binding SelectedRoom}" 
@@ -398,6 +398,11 @@
                     </Style>
                 </DataGrid.ItemContainerStyle>
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ строки" 
+                                        HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                        CellStyle="{StaticResource DGColumnCellCenterStyle}"
+                                        Width="60"
+                                        Binding="{Binding RowNumber}"/>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id"
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
@@ -489,15 +494,15 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Количество рабочих мест" 
+                    <DataGridTextColumn Header="Количество людей с постоянным пребыванием" 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="90"
+                                        Width="100"
                                         Binding="{Binding Kolichestvo_personala}"/>
-                    <DataGridTextColumn Header="Количество посетителей" 
+                    <DataGridTextColumn Header="Количество людей с не постоянным пребыванием" 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
-                                        Width="90"
+                                        Width="100"
                                         Binding="{Binding Kolichestvo_posetitelei}"/>
                     <DataGridTextColumn Header="Категория пожароопасности" 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
