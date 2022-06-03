@@ -265,6 +265,14 @@
     <Compile Include="Migrations\202206021429534_addRowNumberInRaSM_Rooms_3.designer.cs">
       <DependentUpon>202206021429534_addRowNumberInRaSM_Rooms_3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206030813097_deleteRowNumberString.cs" />
+    <Compile Include="Migrations\202206030813097_deleteRowNumberString.designer.cs">
+      <DependentUpon>202206030813097_deleteRowNumberString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206030816524_addColRowNumberForIntValue.cs" />
+    <Compile Include="Migrations\202206030816524_addColRowNumberForIntValue.designer.cs">
+      <DependentUpon>202206030816524_addColRowNumberForIntValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CsvModels\UploadToCsvModel.cs" />
     <Compile Include="Models\DbModels\Base\MainDbContext.cs" />
@@ -495,6 +503,12 @@
     <EmbeddedResource Include="Migrations\202206021429534_addRowNumberInRaSM_Rooms_3.resx">
       <DependentUpon>202206021429534_addRowNumberInRaSM_Rooms_3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206030813097_deleteRowNumberString.resx">
+      <DependentUpon>202206030813097_deleteRowNumberString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206030816524_addColRowNumberForIntValue.resx">
+      <DependentUpon>202206030816524_addColRowNumberForIntValue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -559,6 +573,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\duplicate-24.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\numbers-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\numbers-32.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

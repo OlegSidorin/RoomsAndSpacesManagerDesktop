@@ -35,6 +35,14 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        <Button Grid.Column="2" Grid.Row="2" 
+                Width="40" Height="24" 
+                Style="{StaticResource ButtonStyle01}"    
+                Command="{Binding NumberingCommand}"
+                HorizontalAlignment="Left" Margin="10 0 0 0">
+            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/numbers-32.png"
+                               Height="20"/>
+        </Button>
         <DockPanel Grid.Row="0" Grid.Column="0">
             <TextBlock Width="50" 
                        Margin="6 0 0 0"
@@ -494,12 +502,12 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Количество людей с постоянным пребыванием" 
+                    <DataGridTextColumn Header="Кол-во мест с пост.преб." 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="100"
                                         Binding="{Binding Kolichestvo_personala}"/>
-                    <DataGridTextColumn Header="Количество людей с не постоянным пребыванием" 
+                    <DataGridTextColumn Header="Кол-во мест с врем.преб." 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="100"

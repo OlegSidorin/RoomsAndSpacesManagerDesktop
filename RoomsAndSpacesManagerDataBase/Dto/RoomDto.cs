@@ -312,7 +312,7 @@ namespace RoomsAndSpacesManagerDataBase.Dto
         public string Kolichestvo_posetitelei { get; set; }
         public string Nagruzki_na_perekririe { get; set; }
         public string El_Nagruzka { get; set; }
-        public string RowNumber { get; set; }
+        public int RowNumber { get; set; } 
 
         public string Notation { get; set; }
         #endregion

@@ -151,6 +151,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             SetDefaultValue_Discription_AK_ATHCommand = new RelayCommand(OnSetDefaultValue_Discription_AK_ATHCommandExecuted, CanSetDefaultValue_Discription_AK_ATHCommandExecute);
             SetDefaultValue_Discription_GSVCommand = new RelayCommand(OnSetDefaultValue_Discription_GSVCommandExecuted, CanSetDefaultValue_Discription_GSVCommandExecute);
             SetDefaultValue_Discription_HSCommand = new RelayCommand(OnSetDefaultValue_Discription_HSCommandExecuted, CanSetDefaultValue_Discription_HSCommandExecute);
+            
+            NumberingCommand = new RelayCommand(OnNumberingCommandExecuted, CanNumberingCommandExecute);
 
 
             #endregion
@@ -745,7 +747,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         #endregion
 
-        #region Комманда при отрисовке комбобокса
+        #region Комманда при отрисовке комбобокса ===================================================================================================================
 
         private ICommand renderComboboxCommand;
         public ICommand RenderComboboxCommand
@@ -893,6 +895,58 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         #endregion
 
+        #region Комманд. Нумерование списка помещений
+        public ICommand NumberingCommand { get; set; }
+        private void OnNumberingCommandExecuted(object p)
+        {
+            try
+            {
+                var selItem = ThisWindow.dgRooms.SelectedItem;
+                //MessageBox.Show("Привет!");
+                
+                if (Rooms == null) return;
+                List<(int, int, string)> roomIds = new List<(int, int, string)>(); 
+                foreach(RoomDto room in Rooms)
+                {
+                    roomIds.Add((room.RowNumber, room.Id, room.RoomNumber));
+                }
+                var sortedRoomIds = roomIds.OrderBy(x => x.Item1).ThenBy(x => x.Item3).ThenBy(x => x.Item2);
+                if (sortedRoomIds.Count() > 1)
+                {
+                    int row = 1;
+                    foreach(var srid in sortedRoomIds)
+                    {
+                        foreach(RoomDto roomDto in Rooms)
+                        {
+                            if (roomDto.Id == srid.Item2)
+                            {
+                                roomDto.RowNumber = row;
+                            }
+                        }
+                        row++;
+                    }
+                }
+
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
+                Rooms.Refresh();
+                //ThisWindow.dgRooms.Columns.ElementAt(0).SortDirection = ListSortDirection.Ascending;
+                //ThisWindow.dgRooms.Items.Refresh();
+               
+                //ThisWindow.dgRooms.SelectedItem = selItem;
+                //ThisWindow.dgRooms.ScrollIntoView(selItem);
+            }
+            catch (Exception ex)
+            {
+                Toolkit.MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+        private bool CanNumberingCommandExecute(object p) => true;
+
+        #endregion
+
+
         #region Комманд. Копирoвание Имени в Kраткое имя
         public ICommand CopyNameToShortNameCommand { get; set; }
         private void OnCopyNameToShortNameCommandExecuted(object p)
@@ -968,17 +1022,36 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 //projContext.RemoveRoom(p as RoomDto);
                 
                 RoomDto room = p as RoomDto;
+                RoomDto roomDtoNew = new RoomDto();
                 if (SelectedBuilding != null)
                 {
-                    RoomDto roomDtoNew = new RoomDto();
+                    
                     roomDtos = projContext.AddNewRoom(SelectedSubdivision, room, out roomDtoNew);
+                }
+
+                int selectedrow = roomDtoNew.Id;
+
+                string selectedrowstring = selectedrow.ToString();
+
+                for (int i = 0; i < ThisWindow.dgRooms.Items.Count; i++)
+                {
+                    DataGridRow row = (DataGridRow)ThisWindow.dgRooms.ItemContainerGenerator.ContainerFromIndex(i);
+                    TextBlock cellContent = ThisWindow.dgRooms.Columns[1].GetCellContent(row) as TextBlock;
+                    if (cellContent != null && cellContent.Text.Equals(selectedrowstring))
+                    {
+                        object item = ThisWindow.dgRooms.Items[i];
+                        ThisWindow.dgRooms.SelectedItem = item;
+                        ThisWindow.dgRooms.ScrollIntoView(item);
+                        row.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                        break;
+                    }
                 }
 
                 //MessageBox.Show(roomDto.Id.ToString());
                 //roomDtos = projContext.GetRooms(SelectedSubdivision);
                 //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
                 //Rooms.Refresh();
-                RefreshAndFocusToLastItem();
+                //RefreshAndFocusToLastItem();
             }
         }
         private bool CanDuplicateRowCommandExecute(object p) => true;
@@ -1390,7 +1463,12 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                         //{
                         //    SubdivisionId = SelectedSubdivision.Id
                         //});
-                        roomDtos = projContext.AddNewRoom(SelectedSubdivision);
+                        List<RoomDto> _rooms = new List<RoomDto>(); 
+                        foreach(RoomDto roomDto in Rooms)
+                        {
+                            _rooms.Add(roomDto);
+                        }
+                        roomDtos = projContext.AddNewRoom(SelectedSubdivision, _rooms.Count());
                         //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
                         //Rooms.Refresh();
                         
