@@ -84,50 +84,58 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
 
         public List<RoomDto> AddNewRoom(SubdivisionDto subdiv, RoomDto room, out RoomDto roomDtoNew)
         {
-            roomDtoNew = new RoomDto()
+            if (room.RoomName != null)
             {
-                SubdivisionId = subdiv.Id,
-                RowNumber = room.RowNumber,
-                RoomNumber = room.RoomNumber,
-                RoomNameId = room.RoomName.Id,
-                ShortName = room.ShortName,
+                roomDtoNew = new RoomDto()
+                {
+                    SubdivisionId = subdiv.Id,
+                    RowNumber = room.RowNumber,
+                    RoomNumber = room.RoomNumber,
+                    RoomNameId = room.RoomName.Id,
+                    ShortName = room.ShortName,
 
-            };
+                };
 
-            if (room.Discription_HS != null) roomDtoNew.Discription_HS = room.Discription_HS;
-            if (room.Discription_GSV != null) roomDtoNew.Discription_GSV = room.Discription_GSV;
-            if (room.Discription_AK_ATH != null) roomDtoNew.Discription_AK_ATH = room.Discription_AK_ATH;
-            if (room.Discription_SS != null) roomDtoNew.Discription_SS = room.Discription_SS;
-            if (room.Equipment_VK != null) roomDtoNew.Equipment_VK = room.Equipment_VK;
-            if (room.Discription_EOM != null) roomDtoNew.Discription_EOM = room.Discription_EOM;
-            if (room.Group_el_bez != null) roomDtoNew.Group_el_bez = room.Group_el_bez;
-            if (room.Osveshennost_pro_obshem_osvech != null) roomDtoNew.Osveshennost_pro_obshem_osvech = room.Osveshennost_pro_obshem_osvech;
-            if (room.Discription_OV != null) roomDtoNew.Discription_OV = room.Discription_OV;
-            if (room.Ot_vlazhnost != null) roomDtoNew.Ot_vlazhnost = room.Ot_vlazhnost;
-            if (room.Discription_AR != null) roomDtoNew.Discription_AR = room.Discription_AR;
-            if (room.Vityazhka != null) roomDtoNew.Vityazhka = room.Vityazhka;
-            if (room.Pritok != null) roomDtoNew.Pritok = room.Pritok;
-            if (room.T_min != null) roomDtoNew.T_min = room.T_min;
-            if (room.T_max != null) roomDtoNew.T_max = room.T_max;
-            if (room.T_calc != null) roomDtoNew.T_calc = room.T_calc;
-            if (room.Class_chistoti_SP_158 != null) roomDtoNew.Class_chistoti_SP_158 = room.Class_chistoti_SP_158;
-            if (room.Class_chistoti_SanPin != null) roomDtoNew.Class_chistoti_SanPin = room.Class_chistoti_SanPin;
-            if (room.Class_chistoti_GMP != null) roomDtoNew.Class_chistoti_GMP = room.Class_chistoti_GMP;
-            if (room.Min_area != null) roomDtoNew.Min_area = room.Min_area;
-            if (room.Notation != null) roomDtoNew.Notation = room.Notation;
-            if (room.Equipments != null) roomDtoNew.Equipments = room.Equipments;
-            if (room.Categoty_Chistoti_po_san_epid != null) roomDtoNew.Categoty_Chistoti_po_san_epid = room.Categoty_Chistoti_po_san_epid;
-            if (room.Nagruzki_na_perekririe != null) roomDtoNew.Nagruzki_na_perekririe = room.Nagruzki_na_perekririe;
-            if (room.Categoty_pizharoopasnosti != null) roomDtoNew.Categoty_pizharoopasnosti = room.Categoty_pizharoopasnosti;
-            if (room.El_Nagruzka != null) roomDtoNew.El_Nagruzka = room.El_Nagruzka;
-            //if (room.ArRoomId != null) roomDtoNew.ArRoomId = room.ArRoomId;
-            if (room.Kolichestvo_posetitelei != null) roomDtoNew.Kolichestvo_posetitelei = room.Kolichestvo_posetitelei;
-            if (room.Kolichestvo_personala != null) roomDtoNew.Kolichestvo_personala = room.Kolichestvo_personala;
-            if (room.Rab_mesta_posetiteli != null) roomDtoNew.Rab_mesta_posetiteli = room.Rab_mesta_posetiteli;
+                if (room.Discription_HS != null) roomDtoNew.Discription_HS = room.Discription_HS; else room.Discription_HS = "";
+                if (room.Discription_GSV != null) roomDtoNew.Discription_GSV = room.Discription_GSV; else room.Discription_GSV = "";
+                if (room.Discription_AK_ATH != null) roomDtoNew.Discription_AK_ATH = room.Discription_AK_ATH; else room.Discription_AK_ATH = "";
+                if (room.Discription_SS != null) roomDtoNew.Discription_SS = room.Discription_SS; else room.Discription_SS = "";
+                if (room.Equipment_VK != null) roomDtoNew.Equipment_VK = room.Equipment_VK; else room.Equipment_VK = "";
+                if (room.Discription_EOM != null) roomDtoNew.Discription_EOM = room.Discription_EOM; else room.Discription_EOM = "";
+                if (room.Group_el_bez != null) roomDtoNew.Group_el_bez = room.Group_el_bez; else room.Group_el_bez = "";
+                if (room.Osveshennost_pro_obshem_osvech != null) roomDtoNew.Osveshennost_pro_obshem_osvech = room.Osveshennost_pro_obshem_osvech; else room.Osveshennost_pro_obshem_osvech = "";
+                if (room.Discription_OV != null) roomDtoNew.Discription_OV = room.Discription_OV; else room.Discription_OV = "";
+                if (room.Ot_vlazhnost != null) roomDtoNew.Ot_vlazhnost = room.Ot_vlazhnost; else room.Ot_vlazhnost = "";
+                if (room.Discription_AR != null) roomDtoNew.Discription_AR = room.Discription_AR; else room.Discription_AR = "";
+                if (room.Vityazhka != null) roomDtoNew.Vityazhka = room.Vityazhka; else room.Vityazhka = "";
+                if (room.Pritok != null) roomDtoNew.Pritok = room.Pritok; else room.Pritok = "";
+                if (room.T_min != null) roomDtoNew.T_min = room.T_min; else room.T_min = "";
+                if (room.T_max != null) roomDtoNew.T_max = room.T_max; else room.T_max = "";
+                if (room.T_calc != null) roomDtoNew.T_calc = room.T_calc; else room.T_calc = "";
+                if (room.Class_chistoti_SP_158 != null) roomDtoNew.Class_chistoti_SP_158 = room.Class_chistoti_SP_158; else room.Class_chistoti_SP_158 = "";
+                if (room.Class_chistoti_SanPin != null) roomDtoNew.Class_chistoti_SanPin = room.Class_chistoti_SanPin; else room.Class_chistoti_SanPin = "";
+                if (room.Class_chistoti_GMP != null) roomDtoNew.Class_chistoti_GMP = room.Class_chistoti_GMP; else room.Class_chistoti_GMP = "";
+                if (room.Min_area != null) roomDtoNew.Min_area = room.Min_area; else room.Min_area = "";
+                if (room.Notation != null) roomDtoNew.Notation = room.Notation; else room.Notation = "";
+                //if (room.Equipments != null) roomDtoNew.Equipments = room.Equipments; else room.Equipments = "";
+                if (room.Categoty_Chistoti_po_san_epid != null) roomDtoNew.Categoty_Chistoti_po_san_epid = room.Categoty_Chistoti_po_san_epid; else room.Categoty_Chistoti_po_san_epid = "";
+                if (room.Nagruzki_na_perekririe != null) roomDtoNew.Nagruzki_na_perekririe = room.Nagruzki_na_perekririe; else room.Nagruzki_na_perekririe = "";
+                if (room.Categoty_pizharoopasnosti != null) roomDtoNew.Categoty_pizharoopasnosti = room.Categoty_pizharoopasnosti; else room.Categoty_pizharoopasnosti = "";
+                if (room.El_Nagruzka != null) roomDtoNew.El_Nagruzka = room.El_Nagruzka; else room.El_Nagruzka = "";
+                if (room.ArRoomId != null) roomDtoNew.ArRoomId = room.ArRoomId;
+                if (room.Kolichestvo_posetitelei != null) roomDtoNew.Kolichestvo_posetitelei = room.Kolichestvo_posetitelei; else room.Kolichestvo_posetitelei = "";
+                if (room.Kolichestvo_personala != null) roomDtoNew.Kolichestvo_personala = room.Kolichestvo_personala; else room.Kolichestvo_personala = "";
+                if (room.Rab_mesta_posetiteli != null) roomDtoNew.Rab_mesta_posetiteli = room.Rab_mesta_posetiteli; else room.Rab_mesta_posetiteli = "";
 
-            context.RaSM_Rooms.Add(roomDtoNew);
+                context.RaSM_Rooms.Add(roomDtoNew);
 
-            context.SaveChanges();
+                context.SaveChanges();
+            }
+            else
+            {
+                roomDtoNew = null;
+            }
+            
             return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
         }
 
@@ -178,6 +186,13 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
             else
                 return null;
         }
+        public List<RoomDto> GetRooms(SubdivisionDto subdivision, string roomShortName)
+        {
+            if (subdivision != null)
+                return context.RaSM_Rooms.Where(x => x.Subdivision.Id == subdivision.Id && x.ShortName.Contains(roomShortName)).ToList();
+            else
+                return null;
+        }
 
         public List<RoomDto> GetAllRoomsByProject(ProjectDto project)
         {
@@ -190,6 +205,27 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
                     foreach (SubdivisionDto subdiv in build.Subdivisions.OrderBy(x => x.Order))
                     {
                         subDivsIds.Add(subdiv.Id);
+                    }
+                }
+
+                return context.RaSM_Rooms.Where(x => subDivsIds.Contains(x.SubdivisionId)).OrderBy(x => x.Subdivision.Order).ToList();
+            }
+            return null;
+        }
+        public List<RoomDto> GetAllRoomsByProject(ProjectDto project, BuildingDto buildingDto)
+        {
+            if (project != null)
+            {
+                List<int> subDivsIds = new List<int>();
+
+                foreach (BuildingDto build in project.Buildings)
+                {
+                    if (build.Name.Equals(buildingDto.Name))
+                    {
+                        foreach (SubdivisionDto subdiv in build.Subdivisions.OrderBy(x => x.Order))
+                        {
+                            subDivsIds.Add(subdiv.Id);
+                        }
                     }
                 }
 

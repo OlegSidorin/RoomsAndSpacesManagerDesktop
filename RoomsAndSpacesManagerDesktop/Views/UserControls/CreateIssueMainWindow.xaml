@@ -35,14 +35,26 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="2" Grid.Row="2" 
-                Width="40" Height="24" 
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" >
+            <Button Width="40" Height="24" 
                 Style="{StaticResource ButtonStyle01}"    
                 Command="{Binding NumberingCommand}"
                 HorizontalAlignment="Left" Margin="10 0 0 0">
-            <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/numbers-32.png"
+                <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/numbers-32.png"
                                Height="20"/>
-        </Button>
+            </Button>
+            <Button Height="24"  Width="40"
+                Style="{StaticResource ButtonStyle01}"   
+                    Command="{Binding FindViewCommand}"
+                HorizontalAlignment="Left" Margin="10 0 0 0">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="pack://application:,,,/RoomsAndSpacesManagerDesktop;component/Resources/find-view-32.png"
+                               Height="20" />
+                </StackPanel>
+            </Button>
+            <TextBox Text="{Binding ShortNameFilter}" Width="120" Margin="8 0 0 0" Background="Transparent" BorderBrush="Blue" BorderThickness="0 0 0 1" VerticalAlignment="Center" />
+        </StackPanel>
+        
         <DockPanel Grid.Row="0" Grid.Column="0">
             <TextBlock Width="50" 
                        Margin="6 0 0 0"
@@ -439,7 +451,8 @@
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="100" 
                                         Binding="{Binding RoomNumber}"/>
-                    <DataGridTemplateColumn Header="Наименование (по СП 158)"  
+
+                    <DataGridTemplateColumn Header="Наименование (по СП 158)" SortMemberPath="Name"
                                         CellStyle="{StaticResource DGColumnCellLeftStyle}"
                                             Width="250">
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -502,12 +515,12 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Кол-во мест с пост.преб." 
+                    <DataGridTextColumn Header="Кол-во мест с пост. преб." 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="100"
                                         Binding="{Binding Kolichestvo_personala}"/>
-                    <DataGridTextColumn Header="Кол-во мест с врем.преб." 
+                    <DataGridTextColumn Header="Кол-во мест с врем. преб." 
                                         HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
                                         CellStyle="{StaticResource DGColumnCellCenterStyle}"
                                         Width="100"
@@ -908,12 +921,20 @@
                     Width="190" Height="35" 
                     DockPanel.Dock="Right" 
                     Margin="0 0 4 0"/>
-            <Button Command="{Binding UploadProgramToExcelCommand}" 
-                    Content="Выгрузить задание" 
+            <Button Command="{Binding UploadAllProgramToExcelCommand}" 
                     Style="{StaticResource ButtonStyle01}"
-                    Width="160" Height="35" DockPanel.Dock="Right" 
+                    Width="100" Height="35" DockPanel.Dock="Right" 
                     HorizontalAlignment="Right" 
-                    Margin="0 0 10 0"/>
+                    Margin="0 0 10 0">
+                <TextBlock Text="Выгрузить все подразделения" TextWrapping="Wrap" />
+            </Button>
+            <Button Command="{Binding UploadProgramToExcelCommand}" 
+                    Style="{StaticResource ButtonStyle01}"
+                    Width="100" Height="35" DockPanel.Dock="Right" 
+                    HorizontalAlignment="Right" 
+                    Margin="0 0 10 0">
+                <TextBlock Text="Выгрузить это подразделение" TextWrapping="Wrap" />
+            </Button>
             <Button Command="{Binding UploadStandartEquipmentToExcelCommand}" 
                     Content="Выгрузить по стандарту" 
                     Style="{StaticResource ButtonStyle01}"

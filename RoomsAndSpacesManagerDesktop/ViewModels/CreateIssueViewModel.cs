@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using RoomsAndSpacesManagerDataBase.Dto;
 using RoomsAndSpacesManagerDataBase.Dto.RoomInfrastructure;
 using RoomsAndSpacesManagerDesktop.Data.DataBaseContext;
@@ -66,6 +67,20 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             }
         }
 
+        private string _shortNameFilter;
+        public string ShortNameFilter
+        {
+            get { return _shortNameFilter; }
+            set
+            {
+                if (_shortNameFilter != value)
+                {
+                    _shortNameFilter = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _numberNewStrings;
         public string NumberNewStrings
         {
@@ -101,6 +116,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
             PushToDbCommand = new RelayCommand(OnPushToDbCommandExecuted, CanPushToDbCommandExecute);
             UploadProgramToExcelCommand = new RelayCommand(OnUploadProgramToExcelCommandExecuted, CanUploadProgramToExcelCommandExecute);
+            UploadAllProgramToExcelCommand = new RelayCommand(OnUploadAllProgramToExcelCommandExecuted, CanUploadAllProgramToExcelCommandExecute);
             UploadStandartEquipmentToExcelCommand = new RelayCommand(OnUploadStandartEquipmentToExcelCommandExecuted, CanUploadStandartEquipmentToExcelCommandExecute);
             AddNewRowCommand = new RelayCommand(OnAddNewRowCommandExecuted, CanAddNewRowCommandExecute);
             AddNewProjectCommand = new RelayCommand(OnAddNewProjectCommandExecuted, CanAddNewProjectCommandExecute);
@@ -153,6 +169,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             SetDefaultValue_Discription_HSCommand = new RelayCommand(OnSetDefaultValue_Discription_HSCommandExecuted, CanSetDefaultValue_Discription_HSCommandExecute);
             
             NumberingCommand = new RelayCommand(OnNumberingCommandExecuted, CanNumberingCommandExecute);
+            FindViewCommand = new RelayCommand(OnFindViewCommandExecuted, CanFindViewCommandExecute);
 
 
             #endregion
@@ -946,6 +963,45 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
         #endregion
 
+        #region Комманд. Нумерование списка помещений
+        public ICommand FindViewCommand { get; set; }
+        private void OnFindViewCommandExecuted(object p)
+        {
+            try
+            {
+                var selItem = ThisWindow.dgRooms.SelectedItem;
+
+                //MessageBox.Show("Привет!");
+
+                if (Rooms == null) return;
+
+                roomDtos = projContext.GetRooms(SelectedSubdivision, ShortNameFilter);
+
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+
+                
+
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
+                Rooms.Refresh();
+
+
+                //ThisWindow.dgRooms.Columns.ElementAt(0).SortDirection = ListSortDirection.Ascending;
+                //ThisWindow.dgRooms.Items.Refresh();
+
+                //ThisWindow.dgRooms.SelectedItem = selItem;
+                //ThisWindow.dgRooms.ScrollIntoView(selItem);
+            }
+            catch (Exception ex)
+            {
+                Toolkit.MessageBox.Show(ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+        private bool CanFindViewCommandExecute(object p) => true;
+
+        #endregion
+
 
         #region Комманд. Копирoвание Имени в Kраткое имя
         public ICommand CopyNameToShortNameCommand { get; set; }
@@ -1025,27 +1081,38 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 RoomDto roomDtoNew = new RoomDto();
                 if (SelectedBuilding != null)
                 {
-                    
                     roomDtos = projContext.AddNewRoom(SelectedSubdivision, room, out roomDtoNew);
                 }
+
+                if (roomDtoNew == null) return;
 
                 int selectedrow = roomDtoNew.Id;
 
                 string selectedrowstring = selectedrow.ToString();
 
-                for (int i = 0; i < ThisWindow.dgRooms.Items.Count; i++)
-                {
-                    DataGridRow row = (DataGridRow)ThisWindow.dgRooms.ItemContainerGenerator.ContainerFromIndex(i);
-                    TextBlock cellContent = ThisWindow.dgRooms.Columns[1].GetCellContent(row) as TextBlock;
-                    if (cellContent != null && cellContent.Text.Equals(selectedrowstring))
-                    {
-                        object item = ThisWindow.dgRooms.Items[i];
-                        ThisWindow.dgRooms.SelectedItem = item;
-                        ThisWindow.dgRooms.ScrollIntoView(item);
-                        row.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-                        break;
-                    }
-                }
+                roomDtos = projContext.GetRooms(SelectedSubdivision);
+
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
+                Rooms.Refresh();
+
+
+                //for (int i = 0; i < ThisWindow.dgRooms.Items.Count; i++)
+                //{
+                //    DataGridRow row = (DataGridRow)ThisWindow.dgRooms.ItemContainerGenerator.ContainerFromIndex(i);
+                //    TextBlock cellContent = ThisWindow.dgRooms.Columns[1].GetCellContent(row) as TextBlock;
+                //    if (cellContent != null && cellContent.Text.Equals(selectedrowstring))
+                //    {
+                //        object item = ThisWindow.dgRooms.Items[i];
+                //        ThisWindow.dgRooms.SelectedItem = item;
+                //        ThisWindow.dgRooms.ScrollIntoView(item);
+                //        row.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                //        break;
+                //    }
+                //}
+
 
                 //MessageBox.Show(roomDto.Id.ToString());
                 //roomDtos = projContext.GetRooms(SelectedSubdivision);
@@ -1054,6 +1121,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 //RefreshAndFocusToLastItem();
             }
         }
+
         private bool CanDuplicateRowCommandExecute(object p) => true;
 
         #endregion
@@ -1557,6 +1625,20 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             return false;
         }
         #endregion
+
+        #region Комманд. Выгрузить программу в эксель
+        public ICommand UploadAllProgramToExcelCommand { get; set; }
+        private void OnUploadAllProgramToExcelCommandExecuted(object p)
+        {
+            MainExcelModel.UploadProgramToExcel(projContext.GetAllRoomsByProject(SelectedProject, SelectedBuilding));
+        }
+        private bool CanUploadAllProgramToExcelCommandExecute(object p)
+        {
+            if (SelectedSubdivision != null) return true;
+            return false;
+        }
+        #endregion
+
 
         #region Комманд. Выгрузить стандарт список оборудвания в эксель
 
