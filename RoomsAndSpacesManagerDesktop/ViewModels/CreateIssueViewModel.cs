@@ -1537,12 +1537,12 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                             _rooms.Add(roomDto);
                         }
                         roomDtos = projContext.AddNewRoom(SelectedSubdivision, _rooms.Count());
-                        //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-                        //Rooms.Refresh();
-                        
+                        Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                        Rooms.Refresh();
+
                     }
                 }
-                RefreshAndFocusToLastItem();
+                //RefreshAndFocusToLastItem();
             }
             
         }

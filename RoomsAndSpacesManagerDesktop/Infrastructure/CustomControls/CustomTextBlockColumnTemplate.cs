@@ -79,6 +79,7 @@ namespace RoomsAndSpacesManagerDesktop.Infrastructure.CustomControls
                 if (FirstValue != propValue)
                 {
                     Background = Brushes.Pink;
+                    HorizontalAlignment = HorizontalAlignment.Stretch;
                 }
                 else
                 {

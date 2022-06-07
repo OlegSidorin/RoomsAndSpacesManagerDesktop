@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Theme/TextBoxStyle01.xaml" />
                 <ResourceDictionary Source="Theme/DGColumnHeaderCenterStyle.xaml" />
                 <ResourceDictionary Source="Theme/DGColumnCellLeftStyle.xaml" />
+                <ResourceDictionary Source="Theme/DGColumnCellStretchStyle.xaml" />
                 <ResourceDictionary Source="Theme/DGColumnCellCenterStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

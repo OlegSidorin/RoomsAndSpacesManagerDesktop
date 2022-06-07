@@ -76,7 +76,41 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
             context.RaSM_Rooms.Add(new RoomDto()
             {
                 SubdivisionId = subdiv.Id,
-                RowNumber = roomscount + 1
+                RowNumber = roomscount + 1,
+                RoomNumber = string.Empty,
+                RoomNameId = 0,
+                ShortName = string.Empty,
+                Discription_HS = string.Empty,
+                Discription_GSV = string.Empty,
+                Discription_AK_ATH = string.Empty,
+                Discription_SS = string.Empty,
+                Equipment_VK = string.Empty,
+                Discription_EOM = string.Empty,
+                Group_el_bez = string.Empty,
+                Osveshennost_pro_obshem_osvech = string.Empty,
+                Discription_OV = string.Empty,
+                Ot_vlazhnost = string.Empty,
+                Discription_AR = string.Empty,
+                Vityazhka = string.Empty,
+                Pritok = string.Empty,
+                T_min = string.Empty,
+                T_max = string.Empty,
+                T_calc = string.Empty,
+                Class_chistoti_SP_158 = string.Empty,
+                Class_chistoti_SanPin = string.Empty,
+                Class_chistoti_GMP = string.Empty,
+                Min_area = string.Empty,
+                Notation = string.Empty,
+                Categoty_Chistoti_po_san_epid = string.Empty,
+                Nagruzki_na_perekririe = string.Empty,
+                Categoty_pizharoopasnosti = string.Empty,
+                El_Nagruzka = string.Empty,
+                ArRoomId = 0,
+                Kolichestvo_posetitelei = string.Empty,
+                Kolichestvo_personala = string.Empty,
+                Rab_mesta_posetiteli = string.Empty,
+                KEO_est_osv = string.Empty,
+                KEO_sovm_osv = string.Empty
             });
             context.SaveChanges();
             return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
@@ -93,7 +127,6 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
                     RoomNumber = room.RoomNumber,
                     RoomNameId = room.RoomName.Id,
                     ShortName = room.ShortName,
-
                 };
 
                 if (room.Discription_HS != null) roomDtoNew.Discription_HS = room.Discription_HS; else room.Discription_HS = "";

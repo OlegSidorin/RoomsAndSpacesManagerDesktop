@@ -112,7 +112,6 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                     {
                         Toolkit.MessageBox.Show("Возможно, нет доступа к папке\n" + ex.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
                 }
 
                 if (File.Exists(path))
