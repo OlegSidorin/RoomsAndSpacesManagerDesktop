@@ -186,6 +186,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             {
                 roomDtos = projContext.GetRooms(SelectedSubdivision);
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
             }
 
@@ -200,6 +202,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
         private void RefreshAndFocusToSelectedItem()
         {
             Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            Rooms.SortDescriptions.Clear();
+            Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             Rooms.Refresh();
             
             if (ThisWindow.dgRooms.SelectedItem != null)
@@ -231,7 +235,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             //DataGridCellInfo cellInfo = new DataGridCellInfo(ThisWindow.dgRooms.SelectedItem, ThisWindow.dgRooms.Columns[0]);
             //ThisWindow.dgRooms.CurrentCell = cellInfo;
 
-            //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+            Rooms.SortDescriptions.Clear();
+            Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             Rooms.Refresh();
 
             //Thread.Sleep(msec);
@@ -278,6 +284,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             await Task.Run(() =>
             {
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
                 Thread.Sleep(1200);
             });
@@ -421,6 +429,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 {
                     roomDtos = projContext.GetRooms(SelectedSubdivision);
                     Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                    Rooms.SortDescriptions.Clear();
+                    Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                     Rooms.Refresh();
                 }
                 else
@@ -904,6 +914,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
                     roomDtos = projContext.GetRooms(SelectedSubdivision);
                     Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                    Rooms.SortDescriptions.Clear();
+                    Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                     Rooms.Refresh();
                     SelectedSubdivisionAction = null;
                 }
@@ -978,9 +990,6 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 roomDtos = projContext.GetRooms(SelectedSubdivision, ShortNameFilter);
 
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-
-                
-
                 Rooms.SortDescriptions.Clear();
                 Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
@@ -1045,6 +1054,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             {
                 roomDtos.Remove(p as RoomDto);
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
             }
             else
@@ -1053,6 +1064,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
 
                 roomDtos = projContext.GetRooms(SelectedSubdivision);
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
             }
         }
@@ -1071,7 +1084,7 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 //MessageBox.Show(roomDto.Id.ToString());
                 //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
                 //Rooms.Refresh();
-                RefreshAndFocusToLastItem();
+                //RefreshAndFocusToLastItem();
             }
             else
             {
@@ -1093,7 +1106,6 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 roomDtos = projContext.GetRooms(SelectedSubdivision);
 
                 Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-
                 Rooms.SortDescriptions.Clear();
                 Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                 Rooms.Refresh();
@@ -1159,7 +1171,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 room.Discription_GSV = room.RoomName.Discription_GSV;
                 room.Discription_HS = room.RoomName.Discription_HS;
 
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1175,7 +1189,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Min_area = room.RoomName.Min_area;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1191,7 +1207,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Class_chistoti_SanPin = room.RoomName.Class_chistoti_SanPin;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1207,7 +1225,10 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Class_chistoti_SP_158 = room.RoomName.Class_chistoti_SP_158;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
+                //Rooms.Refresh();
             }
 
 
@@ -1223,7 +1244,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Class_chistoti_GMP = room.RoomName.Class_chistoti_GMP;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1239,7 +1262,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.T_calc = room.RoomName.T_calc;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1255,7 +1280,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.T_min = room.RoomName.T_min;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1271,7 +1298,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.T_max = room.RoomName.T_max;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1287,7 +1316,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Vityazhka = room.RoomName.Vityazhka;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1303,7 +1334,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Pritok = room.RoomName.Pritok;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1319,7 +1352,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_AR = room.RoomName.Discription_AR;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1335,7 +1370,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Ot_vlazhnost = room.RoomName.Ot_vlazhnost;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1352,7 +1389,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_OV = room.RoomName.Discription_OV;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1368,7 +1407,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Equipment_VK = room.RoomName.Equipment_VK;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1384,7 +1425,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Osveshennost_pro_obshem_osvech = room.RoomName.Osveshennost_pro_obshem_osvech;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1400,7 +1443,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Group_el_bez = room.RoomName.Group_el_bez;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1416,7 +1461,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_EOM = room.RoomName.Discription_EOM;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1432,7 +1479,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_SS = room.RoomName.Discription_SS;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1448,7 +1497,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_AK_ATH = room.RoomName.Discription_AK_ATH;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1464,7 +1515,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_GSV = room.RoomName.Discription_GSV;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1480,7 +1533,9 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
             if (room.Name != null)
             {
                 room.Discription_HS = room.RoomName.Discription_HS;
-                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                //Rooms.SortDescriptions.Clear();
+                //Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
             }
 
 
@@ -1538,6 +1593,8 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                         }
                         roomDtos = projContext.AddNewRoom(SelectedSubdivision, _rooms.Count());
                         Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                        Rooms.SortDescriptions.Clear();
+                        Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
                         Rooms.Refresh();
 
                     }
@@ -1593,9 +1650,11 @@ namespace RoomsAndSpacesManagerDesktop.ViewModels
                 projContext.AddNewRooms(roomDtos);
                 projContext.SaveChanges();
                 roomDtos = projContext.GetRooms(SelectedSubdivision);
-                //Rooms = CollectionViewSource.GetDefaultView(roomDtos);
-                //Rooms.Refresh();
-                RefreshAndFocusToSelectedIndex();
+                Rooms = CollectionViewSource.GetDefaultView(roomDtos);
+                Rooms.SortDescriptions.Clear();
+                Rooms.SortDescriptions.Add(new SortDescription("RowNumber", ListSortDirection.Ascending));
+                Rooms.Refresh();
+                //RefreshAndFocusToSelectedIndex();
                 Toolkit.MessageBox.Show("Данные успешно загруженны в базу данных", "Статус", MessageBoxButton.OK, MessageBoxImage.Information);
                 //MessageBox.Show("Данные успешно загруженны в базу данных", "Статус", MessageBoxButton.OK, MessageBoxImage.Information);
                 ThisWindow.dgRooms.Focus();

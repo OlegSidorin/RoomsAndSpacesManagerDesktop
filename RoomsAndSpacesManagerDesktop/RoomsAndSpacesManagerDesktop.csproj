@@ -363,6 +363,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\DGColumnHeaderLeftStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\TextBoxStyle01.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

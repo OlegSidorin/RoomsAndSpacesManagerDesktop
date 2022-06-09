@@ -84,10 +84,12 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
             context.AddNewEquipments(equipnets);
         }
 
-        public static bool UploadProgramToExcel (List<RoomDto> rooms)
+        public static bool UploadProgramToExcel (List<RoomDto> roomsDtos)
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
             ExcelPackage excel = new ExcelPackage();
+
+            List<RoomDto> rooms = roomsDtos.OrderBy(r => r.SubdivisionId).ThenBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
@@ -128,6 +130,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         int rowCount = 1;
                         int colCount = 1;
 
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
+
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
                         colCount++;
@@ -154,7 +160,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Kolichestvo_personala);
-                        worksheet.Cells[rowCount, colCount].Value = "Кол-0во мест с пост. преб.";
+                        worksheet.Cells[rowCount, colCount].Value = "Кол-во мест с пост. преб.";
                         colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Kolichestvo_posetitelei);
@@ -263,17 +269,17 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 15;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Width = 15;
                         worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(4).Width = 20;
-                        worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(4).Width = 8;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(5).Width = 20;
                         worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(6).Width = 12;
-                        worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(7).Width = 8;
+                        worksheet.Column(6).Width = 20;
+                        worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(7).Width = 12;
                         worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(8).Width = 8;
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -285,33 +291,33 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         worksheet.Column(11).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(12).Width = 8;
                         worksheet.Column(12).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(13).Width = 20;
-                        worksheet.Column(13).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(14).Width = 8;
-                        worksheet.Column(14).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(13).Width = 8;
+                        worksheet.Column(13).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(14).Width = 20;
+                        worksheet.Column(14).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(15).Width = 8;
                         worksheet.Column(15).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(16).Width = 8;
                         worksheet.Column(16).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(17).Width = 15;
+                        worksheet.Column(17).Width = 8;
                         worksheet.Column(17).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(18).Width = 15;
                         worksheet.Column(18).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(19).Width = 15;
                         worksheet.Column(19).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(20).Width = 20;
-                        worksheet.Column(20).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(20).Width = 15;
+                        worksheet.Column(20).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(21).Width = 20;
                         worksheet.Column(21).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(22).Width = 15;
-                        worksheet.Column(22).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(23).Width = 8;
+                        worksheet.Column(22).Width = 20;
+                        worksheet.Column(22).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(23).Width = 15;
                         worksheet.Column(23).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(24).Width = 15;
+                        worksheet.Column(24).Width = 8;
                         worksheet.Column(24).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(25).Width = 15;
-                        worksheet.Column(25).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(26).Width = 20;
+                        worksheet.Column(25).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(26).Width = 15;
                         worksheet.Column(26).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(27).Width = 20;
                         worksheet.Column(27).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
@@ -321,24 +327,29 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         worksheet.Column(29).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(30).Width = 20;
                         worksheet.Column(30).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(31).Width = 20;
+                        worksheet.Column(31).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:AD1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:AD1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:AE1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:AE1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         System.Drawing.Color colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:AD1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
-                        worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:AD{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells["A1:AE1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.View.FreezePanes(2, 7); // worksheet.View.FreezePanes(2, 1);
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:AE{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.Subdivision?.ToString();
@@ -446,6 +457,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         rowCount = 1;
                         colCount = 1;
 
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
+
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
                         colCount++;
@@ -496,40 +511,45 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
                         worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(8).Width = 8;
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(9).Width = 20;
-                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(9).Width = 8;
+                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(10).Width = 20;
+                        worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:I1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:I1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:J1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:J1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:I1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
-                        worksheet.View.FreezePanes(2, 5); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells["A1:J1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -561,7 +581,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                             rowCount++;
                         }
 
-                        worksheet.Cells[$"A{1}:I{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:J{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -572,6 +592,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -627,14 +651,14 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
@@ -643,27 +667,32 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(9).Width = 8;
                         worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(10).Width = 20;
-                        worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(10).Width = 8;
+                        worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(11).Width = 20;
+                        worksheet.Column(11).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:J1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:j1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:K1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:K1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:J1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
-                        worksheet.View.FreezePanes(2, 5); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells["A1:K1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -698,7 +727,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                             rowCount++;
                         }
 
-                        worksheet.Cells[$"A{1}:J{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:K{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -709,6 +738,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -761,40 +794,45 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
                         worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(8).Width = 8;
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(9).Width = 20;
-                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(9).Width = 8;
+                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(10).Width = 20;
+                        worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:I1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:I1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:J1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:J1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:I1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
-                        worksheet.View.FreezePanes(2, 5); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells["A1:J1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -826,7 +864,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                             rowCount++;
                         }
 
-                        worksheet.Cells[$"A{1}:I{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:J{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -838,6 +876,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         rowCount = 1;
                         colCount = 1;
 
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
+
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
                         colCount++;
@@ -847,11 +889,11 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Name);
-                        worksheet.Cells[rowCount, colCount].Value = "Наименование";
+                        worksheet.Cells[rowCount, colCount].Value = "Наименование (по СП 158)";
                         colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.ShortName);
-                        worksheet.Cells[rowCount, colCount].Value = "Краткое наименование";
+                        worksheet.Cells[rowCount, colCount].Value = "Наименование помещени";
                         colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Nagruzki_na_perekririe);
@@ -873,33 +915,38 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(5).Width = 20;
                         worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(6).Width = 20;
+                        worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:E1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:E1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:F1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:F1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:E1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
-                        worksheet.View.FreezePanes(2, 5); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:E{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells["A1:F1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:F{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -930,6 +977,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -1014,14 +1065,14 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
@@ -1038,32 +1089,37 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         worksheet.Column(12).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(13).Width = 8;
                         worksheet.Column(13).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(14).Width = 15;
+                        worksheet.Column(14).Width = 8;
                         worksheet.Column(14).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(15).Width = 15;
                         worksheet.Column(15).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(16).Width = 15;
                         worksheet.Column(16).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(17).Width = 20;
-                        worksheet.Column(17).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(17).Width = 15;
+                        worksheet.Column(17).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(18).Width = 20;
+                        worksheet.Column(18).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:Q1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:Q1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:R1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:R1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:Q1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.Cells["A1:R1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
                         worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:Q{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:R{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -1120,7 +1176,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                             rowCount++;
                         }
 
-                        worksheet.Cells[$"A{1}:Q{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:R{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -1131,6 +1187,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -1202,14 +1262,14 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
@@ -1220,32 +1280,37 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                         worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(10).Width = 8;
                         worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(11).Width = 15;
+                        worksheet.Column(11).Width = 8;
                         worksheet.Column(11).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(12).Width = 8;
+                        worksheet.Column(12).Width = 15;
                         worksheet.Column(12).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(13).Width = 15;
+                        worksheet.Column(13).Width = 8;
                         worksheet.Column(13).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(14).Width = 20;
-                        worksheet.Column(14).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(14).Width = 15;
+                        worksheet.Column(14).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(15).Width = 20;
+                        worksheet.Column(15).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:N1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:N1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:O1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:O1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:N1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.Cells["A1:O1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
                         worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:N{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:O{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -1292,7 +1357,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
                             rowCount++;
                         }
 
-                        worksheet.Cells[$"A{1}:N{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:O{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -1303,6 +1368,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -1358,43 +1427,48 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
                         worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(8).Width = 8;
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(9).Width = 20;
-                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(9).Width = 8;
+                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(10).Width = 20;
                         worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(11).Width = 20;
+                        worksheet.Column(11).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:J1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:J1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:K1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:K1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:J1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.Cells["A1:K1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
                         worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:K{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
 
 
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+                            
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -1428,7 +1502,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                             rowCount++;
                         }
-                        worksheet.Cells[$"A{1}:J{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:K{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 
@@ -1439,6 +1513,10 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         rowCount = 1;
                         colCount = 1;
+
+                        //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.RowNumber);
+                        worksheet.Cells[rowCount, colCount].Value = "№";
+                        colCount++;
 
                         //worksheet.Cells[rowCount, colCount].Value = nameof(RoomDto.Id);
                         worksheet.Cells[rowCount, colCount].Value = "Id";
@@ -1490,39 +1568,44 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                         worksheet.Column(1).Width = 5;
                         worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(2).Width = 8;
+                        worksheet.Column(2).Width = 5;
                         worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(3).Width = 20;
-                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(3).Width = 8;
+                        worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(4).Width = 20;
                         worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
-                        worksheet.Column(5).Width = 8;
-                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(5).Width = 20;
+                        worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                         worksheet.Column(6).Width = 8;
                         worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(7).Width = 8;
                         worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         worksheet.Column(8).Width = 8;
                         worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Column(9).Width = 20;
-                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                        worksheet.Column(9).Width = 8;
+                        worksheet.Column(9).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Column(10).Width = 20;
+                        worksheet.Column(10).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
-                        worksheet.Cells["A1:I1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        worksheet.Cells["A1:I1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        worksheet.Cells["A1:J1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        worksheet.Cells["A1:J1"].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         colFromHex = System.Drawing.ColorTranslator.FromHtml("#cef4c1");
-                        worksheet.Cells["A1:I1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
+                        worksheet.Cells["A1:J1"].Style.Fill.BackgroundColor.SetColor(colFromHex);
                         worksheet.View.FreezePanes(2, 6); // worksheet.View.FreezePanes(2, 1);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        worksheet.Cells[$"A1:I{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Top.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Bottom.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Left.Color.SetColor(System.Drawing.Color.DarkBlue);
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        worksheet.Cells[$"A1:J{rooms.Count + 1}"].Style.Border.Right.Color.SetColor(System.Drawing.Color.DarkBlue);
                         foreach (var item in rooms)
                         {
-                            worksheet.Cells[rowCount, colCount].Value = item.Id.ToString();
+                            worksheet.Cells[rowCount, colCount].Value = item.RowNumber;
+                            colCount++;
+
+                            worksheet.Cells[rowCount, colCount].Value = item.Id;
                             colCount++;
 
                             worksheet.Cells[rowCount, colCount].Value = item.RoomNumber?.ToString();
@@ -1553,7 +1636,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.ExcelModels
 
                             rowCount++;
                         }
-                        worksheet.Cells[$"A{1}:I{rooms.Count}"].AutoFilter = true;
+                        worksheet.Cells[$"A{1}:J{rooms.Count}"].AutoFilter = true;
 
                         #endregion
 

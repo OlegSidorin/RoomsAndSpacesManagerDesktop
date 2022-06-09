@@ -69,7 +69,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
                 SubdivisionId = subdiv.Id
             });
             context.SaveChanges();
-            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
+            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).OrderBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
         }
         public List<RoomDto> AddNewRoom(SubdivisionDto subdiv, int roomscount)
         {
@@ -113,7 +113,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
                 KEO_sovm_osv = string.Empty
             });
             context.SaveChanges();
-            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
+            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).OrderBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
         }
 
         public List<RoomDto> AddNewRoom(SubdivisionDto subdiv, RoomDto room, out RoomDto roomDtoNew)
@@ -169,7 +169,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
                 roomDtoNew = null;
             }
             
-            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).ToList();
+            return context.RaSM_Rooms.Where(x => x.SubdivisionId == subdiv.Id).OrderBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
         }
 
 
@@ -215,7 +215,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
         public List<RoomDto> GetRooms(SubdivisionDto subdivision)
         {
             if (subdivision != null)
-                return context.RaSM_Rooms.Where(x => x.Subdivision.Id == subdivision.Id).ToList();
+                return context.RaSM_Rooms.Where(x => x.Subdivision.Id == subdivision.Id).OrderBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
             else
                 return null;
         }

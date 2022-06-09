@@ -45,7 +45,8 @@ namespace RoomsAndSpacesManagerDesktop.Infrastructure.CustomControls
 
 
                 string propValue = SecondValue?.GetType().GetProperty(PropertyName)?.GetValue(SecondValue)?.ToString();
-                if (FirstValue != propValue)
+                
+                if (FirstValue != propValue && propValue != string.Empty)
                 {
                     Background = Brushes.Pink;
                     
@@ -70,13 +71,14 @@ namespace RoomsAndSpacesManagerDesktop.Infrastructure.CustomControls
         {
             get
             {
+                
                 return (RoomNameDto)GetValue(SecondValueProperty);
             }
             set
             {
                 SetValue(SecondValueProperty, value);
                 string propValue = SecondValue?.GetType().GetProperty(PropertyName)?.GetValue(SecondValue)?.ToString();
-                if (FirstValue != propValue)
+                if (FirstValue != propValue && propValue != null)
                 {
                     Background = Brushes.Pink;
                     HorizontalAlignment = HorizontalAlignment.Stretch;

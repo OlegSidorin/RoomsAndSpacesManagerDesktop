@@ -187,7 +187,7 @@
                       VerticalGridLinesBrush="#aab"
                       AlternatingRowBackground="#d1d7e2" 
                           CanUserAddRows="False"
-                          FrozenColumnCount ="5"
+                          FrozenColumnCount ="6"
                           EnableRowVirtualization="True"
                           CanUserDeleteRows="False"
                           SelectedItem="{Binding SelectedRoom}" 
@@ -468,7 +468,7 @@
                                     <ComboBox VirtualizingPanel.IsVirtualizing="True" 
                                               IsDropDownOpen="{Binding Path=DataContext.IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
                                               DockPanel.Dock="Bottom" 
-                                              Height="20" Width="230"
+                                              Height="20" 
                                               ItemsSource="{Binding Path=DataContext.RoomsNames, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" 
                                               SelectedItem="{Binding Path=DataContext.SelectedRoomName, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
                                         <i:Interaction.Triggers>
@@ -588,7 +588,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Примечание АР"
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="170">
                         <DataGridTemplateColumn.CellTemplate>
@@ -597,7 +597,7 @@
                                     Text="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_AR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -721,7 +721,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Примечание ОВ" 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="170">
                         <DataGridTemplateColumn.CellTemplate>
@@ -730,7 +730,7 @@
                                     Text="{Binding Discription_OV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_OV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -740,7 +740,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Оборудование ВК" 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="110">
                         <DataGridTemplateColumn.CellTemplate>
@@ -749,7 +749,7 @@
                                     Text="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Equipment_VK, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -802,7 +802,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Примечание ЭОМ" 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="90">
                         <DataGridTemplateColumn.CellTemplate>
@@ -811,7 +811,7 @@
                                     Text="{Binding Discription_EOM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_EOM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -821,7 +821,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Примечание СС"  
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="110">
                         <DataGridTemplateColumn.CellTemplate>
@@ -830,7 +830,7 @@
                                     Text="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_SS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -845,16 +845,16 @@
                                         Width="90"
                                         Binding="{Binding Nagruzki_na_perekririe}"/>
                     <DataGridTemplateColumn Header="Примечание АК, АТХ"  
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
-                                            Width="100">
+                                            Width="140">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_AK_ATH" TextWrapping="Wrap"
                                     Text="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_AK_ATH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -864,7 +864,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Технологические газы" 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                         CellStyle="{StaticResource DGColumnCellStretchStyle}"
                                             Width="180">
                         <DataGridTemplateColumn.CellTemplate>
@@ -873,7 +873,7 @@
                                     Text="{Binding Discription_GSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_GSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
@@ -883,16 +883,16 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Холодоснабжение" 
-                                            HeaderStyle="{StaticResource DGColumnHeaderCenterStyle}"
+                                            HeaderStyle="{StaticResource DGColumnHeaderLeftStyle}"
                                             CellStyle="{StaticResource DGColumnCellStretchStyle}"
-                                            Width="80">
+                                            Width="180">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <customControls:CustomTextBlockColumnTemplate PropertyName="Discription_HS"
                                     Text="{Binding Discription_HS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                       
                                     FirstValue="{Binding Discription_HS, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                                   
                                     SecondValue="{Binding RoomName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                                              TextAlignment="Center"/>
+                                                                              TextAlignment="Left"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
