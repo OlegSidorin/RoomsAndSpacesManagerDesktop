@@ -222,7 +222,7 @@ namespace RoomsAndSpacesManagerDesktop.Models.DbModels
         public List<RoomDto> GetRooms(SubdivisionDto subdivision, string roomShortName)
         {
             if (subdivision != null)
-                return context.RaSM_Rooms.Where(x => x.Subdivision.Id == subdivision.Id && x.ShortName.Contains(roomShortName)).ToList();
+                return context.RaSM_Rooms.Where(x => x.Subdivision.Id == subdivision.Id && x.ShortName.Contains(roomShortName)).OrderBy(r => r.RowNumber).ThenBy(r => r.Id).ToList();
             else
                 return null;
         }
